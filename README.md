@@ -20,12 +20,12 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | Tool | What it does | Repository |
 | --- | --- | --- |
 | grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord | <https://github.com/turinglabsorg/grog> |
-| devo | Read-only audits of GCP, AWS, and DigitalOcean | <https://github.com/turinglabsorg/devo> (private) |
+| devo | Read-only audits of GCP, AWS, and DigitalOcean | <https://github.com/turinglabsorg/devo> |
 | hush | Secrets by name. The agent uses them and never reads the value | <https://github.com/turinglabsorg/hush> |
 | argo | Security review on this machine. A fix is checked before it lands | <https://github.com/turinglabsorg/argo> |
 | ambox | End-to-end encrypted mail for agents | <https://github.com/turinglabsorg/ambox> |
 
-Devo stays private. The installer clones it only when this machine already has access.
+Devo is public, like the other four.
 
 ## Install it yourself
 
@@ -41,7 +41,7 @@ What still needs a person:
 - hush: `signal-cli`, then `hush signal link` from your phone
 - ambox: `ambox register --agent-id NAME`, once. Back up the private key
 - argo: Python 3.12, uv, Docker, and Ollama. The models are large. Say yes before they download
-- devo: access to the private repository, plus `gcloud`, `aws`, or `doctl` for the clouds you actually use
+- devo: `gcloud`, `aws`, or `doctl` for the clouds you actually use
 
 ## What the security check looks at
 

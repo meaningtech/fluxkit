@@ -22,7 +22,7 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 | argo | Security review of the project you open. Fixes are checked before they count | https://github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail. Decryption stays on this machine | https://github.com/turinglabsorg/ambox |
 
-Devo is a private repository. If the clone fails, say so and continue with the public tools. Do not ask the human to paste a token into the chat.
+Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 
 ## Install
 
@@ -43,7 +43,7 @@ The script prints the same instruction you already told the human, then installs
 - grog, from the public repository, skipping tokens when the prompts are empty
 - hush, into `~/.local/bin`, with the agent skill
 - ambox, the CLI only. It does not register an address
-- devo, only when this machine can read the private repository
+- devo, from the public repository
 - argo, the source checkout only. It does not download models
 
 `~/.local/bin` must be on `PATH`.

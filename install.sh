@@ -40,17 +40,10 @@ clone_public() {
 note "source checkouts go to $SRC"
 
 clone_public grog https://github.com/turinglabsorg/grog.git || true
+clone_public devo https://github.com/turinglabsorg/devo.git || true
 clone_public hush https://github.com/turinglabsorg/hush.git || true
 clone_public argo https://github.com/turinglabsorg/argo.git || true
 clone_public ambox https://github.com/turinglabsorg/ambox.git || true
-
-if have gh && gh repo clone turinglabsorg/devo "$SRC/devo" >/dev/null 2>&1; then
-  note "cloned devo"
-elif [ -d "$SRC/devo/.git" ]; then
-  note "devo checkout already present"
-else
-  note "devo was not cloned. The repository is private. Continuing with the public tools."
-fi
 
 if [ -f "$SRC/grog/skill/install.sh" ] && have node && have npm && have jq; then
   note "installing grog. Empty answers skip tokens."

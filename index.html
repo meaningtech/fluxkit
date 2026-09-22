@@ -7,334 +7,161 @@
   <meta name="description" content="Fluxkit is a toolkit of five agents for developers: grog, devo, hush, argo, and ambox.">
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
+    html, body { margin: 0; min-height: 100%; background: #000; color: #e8e8e8; }
     body {
-      color: #efe8dc;
-      font-family: "Share Tech Mono", ui-monospace, monospace;
-      background-color: #3a2618;
-      background-image:
-        radial-gradient(120% 90% at 50% 42%, transparent 45%, rgba(0,0,0,.55)),
-        repeating-linear-gradient(180deg,
-          rgba(255,255,255,.045) 0 1px,
-          transparent 1px 3px,
-          transparent 3px 7px),
-        repeating-linear-gradient(180deg,
-          #2a1a10 0px,
-          #3d2818 1px,
-          #5a3b24 3px,
-          #3a2416 6px,
-          #2a1a10 8px);
+      font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.45;
     }
-    .sr {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid #ffe14a;
-      outline-offset: 3px;
+    a { color: #fff; }
+    a:hover { color: #fff; }
+    :focus-visible { outline: 1px solid #fff; outline-offset: 3px; }
+    .page {
+      width: min(40rem, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
     }
     .top {
       display: flex;
       justify-content: space-between;
-      width: min(1040px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 16px 0 0;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #d7c4ae;
+      color: #6e6e6e;
+      font-size: 12px;
+      letter-spacing: 0.08em;
     }
     .top a { color: inherit; text-decoration: none; }
     .top a:hover { color: #fff; }
-    .scene {
-      min-height: calc(100vh - 40px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-      padding: 12px 16px 28px;
+    .mark {
+      display: block;
+      width: min(168px, 42vw);
+      height: auto;
+      margin: 4.5rem auto 2.5rem;
     }
-    .bench {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      width: min(1040px, 100%);
+    .mark line, .mark circle { stroke: #fff; fill: #fff; }
+    .mark line {
+      stroke-width: 7;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px rgba(255,255,255,.85));
     }
-    .circuit {
-      width: min(680px, 62%);
-      padding: 14px;
-      background: linear-gradient(180deg, #f7f4ef, #d7d1c8 70%, #c9c2b8);
-      border-radius: 18px;
-      box-shadow: 0 18px 28px rgba(0,0,0,.38), inset 0 1px 0 #fff;
+    .mark circle {
+      filter: drop-shadow(0 0 8px #fff);
     }
-    .screen {
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.07), transparent 28%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px),
-        linear-gradient(180deg, #46515b, #1a2026 60%, #2c353d);
-      border: 8px solid #0e1013;
-      padding: 8px 10px 6px;
-      box-shadow: inset 0 0 22px rgba(0,0,0,.55);
+    h1 {
+      margin: 0 0 1.75rem;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0;
     }
-    .band { margin-bottom: 7px; }
-    .fields { display: none; }
-    .digits {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    h1 span { color: #6e6e6e; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li {
+      display: grid;
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-top: 1px solid #222;
     }
-    .digits > :nth-child(n + 3) { display: none; }
-    .fields span, .colon {
-      color: #d5dde4;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-align: center;
-    }
-    .colon { font-size: 1.35rem; line-height: 1; align-self: center; }
-    .cell, .mark {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      min-width: 0;
-      padding: 3px 2px 1px;
-      background: #07090b;
-      border: 1px solid #46515b;
-      text-decoration: none;
-    }
-    .mark { background: transparent; border-color: transparent; }
-    .seg { width: 36px; height: 62px; display: block; }
-    .seg line { fill: none; stroke-width: 6; stroke-linecap: round; }
-    .seg .off { display: none; }
-    .red .seg { filter: drop-shadow(0 0 1px #ff3a18); }
-    .green .seg { filter: drop-shadow(0 0 1px #3dff68); }
-    .yellow .seg { filter: drop-shadow(0 0 1px #ffe14a); }
-    .red .on { stroke: #ff3a18; }
-    .red .off { stroke: rgba(255, 58, 24, 0.16); }
-    .green .on { stroke: #3dff68; }
-    .green .off { stroke: rgba(61, 255, 104, 0.14); }
-    .yellow .on { stroke: #ffe14a; }
-    .yellow .off { stroke: rgba(255, 225, 74, 0.16); }
-    .caption {
-      display: table;
-      margin: 3px auto 0;
-      padding: 0 8px;
-      background: #101318;
-      color: #d5dde4;
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-decoration: none;
-    }
-    .screen-foot {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 4px;
-      padding-top: 6px;
-      border-top: 1px solid rgba(213, 221, 228, 0.28);
-      color: #d5dde4;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-    }
-    .screen-foot a { color: inherit; text-decoration: none; }
-    .screen-foot a:hover, .caption:hover, .cell:hover { filter: brightness(1.25); }
-    .case {
-      position: relative;
-      width: 280px;
-      flex: 0 0 auto;
-      padding: 32px 16px 18px;
-      background: linear-gradient(165deg, #f3ebe1 0%, #d8cec2 28%, #b7ab9e 62%, #e4d9cc 100%);
-      border-radius: 4px;
-      box-shadow: 0 18px 28px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.75);
-    }
-    .slot {
-      position: absolute;
-      top: 11px;
-      left: 50%;
-      width: 38%;
-      height: 11px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, #c45656, #8d3030);
-      border-radius: 1px;
-      box-shadow: inset 0 2px 2px rgba(0,0,0,.35);
-    }
-    .port {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      border-radius: 34px;
-      border: 14px solid #121212;
-      background:
-        radial-gradient(circle at 50% 46%, #f4f0ff 0%, #c4b4ff 18%, #6e59c9 46%, #32256f 74%, #1b1244 100%);
-      box-shadow: inset 0 0 24px rgba(20, 0, 40, .45), 0 0 0 2px #6d655c;
-      overflow: hidden;
-    }
-    .port svg.conduit { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .rail {
-      position: absolute;
-      left: 16%;
-      right: 16%;
-      bottom: 26%;
-      height: 11px;
-      background: linear-gradient(180deg, #8a5340, #5c3426);
-      box-shadow: 0 1px 0 rgba(255,255,255,.28);
-    }
-    .screw {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background:
-        linear-gradient(90deg, transparent 46%, #2a2a2a 46% 54%, transparent 54%),
-        radial-gradient(circle at 35% 35%, #fff, #8a8a8a 55%, #222);
-    }
+    li:last-child { border-bottom: 1px solid #222; }
+    .name { text-decoration: none; }
+    .name:hover { text-decoration: underline; }
+    .what { margin: 0; color: #c8c8c8; }
     .ask {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      width: min(1040px, 100%);
-      padding: 10px 12px 10px 16px;
-      background: linear-gradient(180deg, #2a2118, #16110d);
-      border: 1px solid #6a5340;
-      box-shadow: 0 10px 18px rgba(0,0,0,.28);
+      gap: 1rem;
+      margin-top: 1.75rem;
     }
-    .ask-title {
-      margin: 0;
-      color: #ffe14a;
-      font-size: 15px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-    .ask-actions { display: flex; gap: 8px; }
-    .ask-actions button, .ask-actions a {
+    .ask p { margin: 0; color: #9a9a9a; }
+    .actions { display: flex; gap: 0.5rem; }
+    .actions button, .actions a {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      width: 72px;
-      height: 64px;
-      margin: 0;
-      padding: 6px 4px;
-      border: 1px solid #8a6a32;
-      background: #100e0c;
-      color: #ffe14a;
+      gap: 0.25rem;
+      width: 4.5rem;
+      height: 4.25rem;
+      border: 1px solid #333;
+      background: #000;
+      color: #fff;
       font: inherit;
       font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
       text-decoration: none;
       cursor: pointer;
     }
-    .ask-actions button:hover, .ask-actions a:hover { color: #fff; border-color: #ffe14a; }
-    .ask-actions svg { width: 26px; height: 26px; display: block; }
-    .ask-actions button[data-state="copied"] { color: #3dff68; border-color: #3dff68; }
-    .ask-actions button[data-state="failed"] { color: #ff3a18; border-color: #ff3a18; }
-    @media (max-width: 900px) {
-      .scene { justify-content: flex-start; }
-      .bench { flex-direction: column; align-items: stretch; }
-      .circuit { width: 100%; }
-      .case { width: min(280px, 100%); margin: 0 auto; }
-      .digits > :nth-child(n + 2) { display: none; }
-      .seg { width: 34px; height: 58px; }
-      .cell { padding: 6px 0 4px; }
-      .ask { flex-direction: column; align-items: stretch; text-align: center; }
-      .ask-actions { justify-content: center; }
+    .actions svg { width: 22px; height: 22px; display: block; }
+    .actions button:hover, .actions a:hover { border-color: #fff; }
+    .actions button[data-state="copied"] { color: #fff; border-color: #fff; }
+    .actions button[data-state="failed"] { color: #f66; border-color: #f66; }
+    @media (max-width: 520px) {
+      .ask { flex-direction: column; align-items: flex-start; }
+      li { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mark line, .mark circle { filter: none; }
     }
   </style>
 </head>
 <body>
-  <svg width="0" height="0" aria-hidden="true">
-    <filter id="segglow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="0.7" result="b"/>
-      <feMerge>
-        <feMergeNode in="b"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="tubeglow" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="420">
-      <feGaussianBlur stdDeviation="4" result="b"/>
-      <feMerge>
-        <feMergeNode in="b"/>
-        <feMergeNode in="b"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </svg>
-  <nav class="top">
-    <a href="https://github.com/meaningtech">meaningtech</a>
-    <a href="https://github.com/meaningtech/fluxkit">source</a>
-  </nav>
-  <main class="scene">
-    <div class="bench">
-      <section class="circuit" aria-label="Fluxkit tools">
-        <div class="screen">
-          <div class="band red"><div class="fields" aria-hidden="true"><span>MONTH</span><span>DAY</span><span>YEAR</span><span></span><span>HOUR</span><span></span><span>MIN</span></div><div class="digits"><a class="cell" href="https://github.com/turinglabsorg/grog"><span class="sr">GROG</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/grog"><span class="sr">01</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/grog"><span class="sr">GIT</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="on" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="on" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="mark"><span class="sr">AM</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></span><a class="cell" href="https://github.com/turinglabsorg/grog"><span class="sr">HUB</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="on" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="colon" aria-hidden="true">:</span><a class="cell" href="https://github.com/turinglabsorg/grog"><span class="sr">MSG</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a></div><a class="caption" href="https://github.com/turinglabsorg/grog">GROG</a></div>
-<div class="band green"><div class="fields" aria-hidden="true"><span>MONTH</span><span>DAY</span><span>YEAR</span><span></span><span>HOUR</span><span></span><span>MIN</span></div><div class="digits"><a class="cell" href="https://github.com/turinglabsorg/hush"><span class="sr">HUSH</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/hush"><span class="sr">03</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/hush"><span class="sr">AGE</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="mark"><span class="sr">PM</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></span><a class="cell" href="https://github.com/turinglabsorg/hush"><span class="sr">KEY</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="colon" aria-hidden="true">:</span><a class="cell" href="https://github.com/turinglabsorg/hush"><span class="sr">RUN</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg></a></div><a class="caption" href="https://github.com/turinglabsorg/hush">HUSH</a></div>
-<div class="band yellow"><div class="fields" aria-hidden="true"><span>MONTH</span><span>DAY</span><span>YEAR</span><span></span><span>HOUR</span><span></span><span>MIN</span></div><div class="digits"><a class="cell" href="https://github.com/turinglabsorg/argo"><span class="sr">ARGO</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/argo"><span class="sr">04</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><a class="cell" href="https://github.com/turinglabsorg/argo"><span class="sr">SEC</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="mark"><span class="sr">AM</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></span><a class="cell" href="https://github.com/turinglabsorg/argo"><span class="sr">FIX</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="on" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="on" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="on" x1="34" y1="14" x2="26" y2="36"/><line class="on" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="on" x1="34" y1="66" x2="26" y2="44"/></svg></a><span class="colon" aria-hidden="true">:</span><a class="cell" href="https://github.com/turinglabsorg/argo"><span class="sr">LAB</span><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="off" x1="12" y1="8" x2="36" y2="8"/><line class="off" x1="38" y1="12" x2="38" y2="34"/><line class="off" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="off" x1="14" y1="40" x2="23" y2="40"/><line class="off" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="off" x1="12" y1="72" x2="36" y2="72"/><line class="on" x1="10" y1="46" x2="10" y2="68"/><line class="on" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="off" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="off" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg><svg class="seg" viewBox="0 0 48 80" aria-hidden="true"><line class="on" x1="12" y1="8" x2="36" y2="8"/><line class="on" x1="38" y1="12" x2="38" y2="34"/><line class="on" x1="38" y1="46" x2="38" y2="68"/><line class="on" x1="12" y1="72" x2="36" y2="72"/><line class="off" x1="10" y1="46" x2="10" y2="68"/><line class="off" x1="10" y1="12" x2="10" y2="34"/><line class="on" x1="14" y1="40" x2="23" y2="40"/><line class="on" x1="25" y1="40" x2="36" y2="40"/><line class="off" x1="14" y1="14" x2="22" y2="36"/><line class="on" x1="24" y1="12" x2="24" y2="34"/><line class="off" x1="34" y1="14" x2="26" y2="36"/><line class="off" x1="14" y1="66" x2="22" y2="44"/><line class="on" x1="24" y1="46" x2="24" y2="68"/><line class="off" x1="34" y1="66" x2="26" y2="44"/></svg></a></div><a class="caption" href="https://github.com/turinglabsorg/argo">ARGO</a></div>
-          <div class="screen-foot">
-            <span>DEVO · PRIVATE</span>
-            <a href="https://github.com/turinglabsorg/ambox">AMBOX · MAIL</a>
-          </div>
-        </div>
-      </section>
-      <section class="case" aria-label="Flux conduit">
-        <div class="slot" aria-hidden="true"></div>
-        <div class="port">
-          <svg class="conduit" viewBox="0 0 320 400" role="img" aria-label="Three conduits meeting at a glowing core">
-            <path d="M78 92 C 36 150, 42 220, 68 268" fill="none" stroke="#e2b43a" stroke-width="8" stroke-linecap="round"/>
-            <path d="M242 92 C 284 150, 278 220, 252 268" fill="none" stroke="#e2b43a" stroke-width="8" stroke-linecap="round"/>
-            <path d="M160 332 C 214 358, 262 300, 248 250" fill="none" stroke="#e2b43a" stroke-width="8" stroke-linecap="round"/>
-            <g filter="url(#tubeglow)" stroke="#f7f4ff" stroke-linecap="round">
-              <path d="M78 92 L160 176" stroke-width="22"/>
-              <path d="M242 92 L160 176" stroke-width="22"/>
-              <path d="M160 328 L160 176" stroke-width="22"/>
-            </g>
-            <g fill="#140c28" stroke="#f6f3ee" stroke-width="4">
-              <circle cx="78" cy="92" r="24"/>
-              <circle cx="242" cy="92" r="24"/>
-              <circle cx="160" cy="328" r="24"/>
-            </g>
-            <g fill="#fff" filter="url(#tubeglow)">
-              <circle cx="78" cy="92" r="8"/>
-              <circle cx="242" cy="92" r="8"/>
-              <circle cx="160" cy="328" r="8"/>
-            </g>
-            <circle cx="160" cy="176" r="30" fill="#fff" filter="url(#tubeglow)"/>
-            <circle cx="160" cy="176" r="40" fill="none" stroke="#f6f3ee" stroke-width="5"/>
-          </svg>
-          <div class="rail" aria-hidden="true"></div>
-        </div>
-        <div class="screw" aria-hidden="true"></div>
-      </section>
-    </div>
+  <main class="page">
+    <nav class="top">
+      <a href="https://github.com/meaningtech">meaningtech</a>
+      <a href="https://github.com/meaningtech/fluxkit">source</a>
+    </nav>
+
+    <svg class="mark" viewBox="0 0 200 230" role="img" aria-label="Flux conduit, stem up">
+      <line x1="100" y1="18" x2="100" y2="108"/>
+      <line x1="100" y1="108" x2="28" y2="208"/>
+      <line x1="100" y1="108" x2="172" y2="208"/>
+      <circle cx="100" cy="108" r="5"/>
+      <circle cx="100" cy="18" r="4"/>
+      <circle cx="28" cy="208" r="4"/>
+      <circle cx="172" cy="208" r="4"/>
+    </svg>
+
+    <h1><span>$</span> fluxkit</h1>
+
+    <ul>
+      <li>
+        <a class="name" href="https://github.com/turinglabsorg/grog">grog</a>
+        <p class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord.</p>
+      </li>
+      <li>
+        <a class="name" href="https://github.com/turinglabsorg/devo">devo</a>
+        <p class="what">Read-only audits of GCP, AWS, and DigitalOcean.</p>
+      </li>
+      <li>
+        <a class="name" href="https://github.com/turinglabsorg/hush">hush</a>
+        <p class="what">Secrets by name. The agent uses them and never reads the value.</p>
+      </li>
+      <li>
+        <a class="name" href="https://github.com/turinglabsorg/argo">argo</a>
+        <p class="what">Security review on this machine. A fix is checked before it lands.</p>
+      </li>
+      <li>
+        <a class="name" href="https://github.com/turinglabsorg/ambox">ambox</a>
+        <p class="what">End-to-end encrypted mail for agents. Decryption stays on this machine.</p>
+      </li>
+    </ul>
+
     <section class="ask" aria-label="Ask your agent">
-      <p class="ask-title">Ask your agent</p>
-      <div class="ask-actions">
+      <p>ask your agent</p>
+      <div class="actions">
         <button type="button" id="copy-instructions">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="8" y="8" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="M6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="8" y="8" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="1.75"/>
           </svg>
-          <span class="ask-word">Copy</span>
+          <span class="ask-word">copy</span>
         </button>
         <a id="open-instructions" href="AGENTS.md" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M14 5h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M19 5l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M17 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 5h5v5M19 5l-8 8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M17 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.75"/>
           </svg>
-          <span class="ask-word">Open</span>
+          <span class="ask-word">open</span>
         </a>
       </div>
     </section>
@@ -342,8 +169,7 @@
   <script type="text/plain" id="agent-prompt">Read https://meaningtech.github.io/fluxkit/AGENTS.md and do what it says.
 Before you install anything, tell me that you are also checking the whole security system.</script>
   <script>
-    const promptNode = document.getElementById("agent-prompt");
-    const promptText = promptNode.textContent.replace(/^\n/, "").replace(/\n$/, "");
+    const promptText = document.getElementById("agent-prompt").textContent.replace(/^\n/, "").replace(/\n$/, "");
     const copyButton = document.getElementById("copy-instructions");
     const copyWord = copyButton.querySelector(".ask-word");
     copyButton.addEventListener("click", async () => {
@@ -366,11 +192,11 @@ Before you install anything, tell me that you are also checking the whole securi
           ok = false;
         }
       }
-      copyWord.textContent = ok ? "Copied" : "Copy failed";
+      copyWord.textContent = ok ? "copied" : "copy failed";
       copyButton.dataset.state = ok ? "copied" : "failed";
       window.clearTimeout(copyButton._timer);
       copyButton._timer = window.setTimeout(() => {
-        copyWord.textContent = "Copy";
+        copyWord.textContent = "copy";
         delete copyButton.dataset.state;
       }, 2000);
     });
