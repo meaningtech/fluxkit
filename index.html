@@ -93,6 +93,32 @@
       line-height: 1.45;
     }
 
+    .ask {
+      margin: 16px 0 4px;
+      padding: 12px 14px 13px;
+      border: 1px solid rgba(255, 178, 58, 0.6);
+      background: rgba(0, 0, 0, 0.45);
+    }
+    .ask-label {
+      margin: 0;
+      color: var(--amber);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .ask a {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--hot);
+      font-family: "Saira Condensed", sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: 0.03em;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .ask a:hover { color: #fff; }
+    .ask p { margin: 8px 0 0; color: var(--mute); font-size: 12px; line-height: 1.4; }
+
     .window {
       position: relative;
       height: 320px;
@@ -229,13 +255,15 @@
         box-shadow: inset 0 0 28px rgba(255, 0, 0, 0.28), 0 0 0 4px #141414, 0 0 0 5px #8a9298;
       }
       .lead {
-        margin: 12px 2px 16px;
+        margin: 12px 2px 0;
         max-width: none;
         color: #ffb25a;
         font-size: 0.86rem;
         letter-spacing: 0.04em;
         text-transform: uppercase;
       }
+      .ask { margin-top: 12px; }
+      .ask a { font-size: 1.2rem; }
       .plate {
         width: auto;
         margin: 0;
@@ -280,6 +308,11 @@
       <div class="brand">
         <h1 class="word">Fluxkit</h1>
         <p class="lead">Five agents, on your machine, for the work around the code. The current runs to the center.</p>
+        <div class="ask">
+          <p class="ask-label">Ask your agent to install the kit</p>
+          <a href="AGENTS.md">AGENTS.md</a>
+          <p>Give your agent that file. It installs Fluxkit, and it tells you that it is also checking the security system.</p>
+        </div>
       </div>
 
       <div class="window">
