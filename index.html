@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fluxkit</title>
+  <meta name="description" content="Fluxkit is a toolkit of five agents for developers: grog, devo, hush, argo, and ambox.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,560;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #12110e;
+      --ink: #efe8dc;
+      --mute: #a3988a;
+      --line: rgba(239, 232, 220, 0.16);
+      --copper: #e07a3d;
+      --copper-dim: rgba(224, 122, 61, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-height: 100%; }
+
+    body {
+      background:
+        radial-gradient(1200px 500px at 80% -10%, rgba(224, 122, 61, 0.16), transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "Familjen Grotesk", sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.011em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    }
+
+    .sheet {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 28px 64px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header, footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    header a, footer a { color: inherit; text-decoration: none; }
+    header a:hover, footer a:hover { color: var(--ink); }
+
+    .mark {
+      position: relative;
+      margin: 9vh 0 48px;
+    }
+
+    .flux {
+      position: absolute;
+      left: -4%;
+      right: -8%;
+      top: 38%;
+      width: 112%;
+      height: 90px;
+      overflow: visible;
+    }
+
+    h1 {
+      position: relative;
+      margin: 0;
+      font-family: "Instrument Serif", serif;
+      font-weight: 400;
+      font-size: clamp(5.4rem, 16vw, 11.5rem);
+      line-height: 0.78;
+      letter-spacing: -0.045em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .lead {
+      position: relative;
+      max-width: 36rem;
+      margin: 28px 0 0;
+      font-size: 1.28rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    ol {
+      list-style: none;
+      margin: auto 0 0;
+      padding: 8px 0 0;
+    }
+
+    li { border-top: 1px solid var(--line); }
+    li:last-child { border-bottom: 1px solid var(--line); }
+
+    li a, li .row {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(6.5rem, 9rem) 1fr auto;
+      gap: 12px 18px;
+      align-items: baseline;
+      padding: 18px 4px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    li a:hover, li a:focus-visible {
+      background: var(--copper-dim);
+      outline: none;
+    }
+
+    .num, .tag {
+      font-variant-numeric: tabular-nums;
+      color: var(--mute);
+      font-size: 0.92rem;
+    }
+
+    .name {
+      font-family: "Instrument Serif", serif;
+      font-size: 1.85rem;
+      letter-spacing: -0.03em;
+    }
+
+    li a:hover .name { color: var(--copper); }
+
+    .what { color: var(--ink); font-size: 1.05rem; line-height: 1.35; }
+
+    .go {
+      color: var(--copper);
+      font-size: 1.1rem;
+    }
+
+    footer { margin-top: 36px; }
+
+    @media (max-width: 720px) {
+      .sheet { padding: 20px 18px 48px; }
+      .mark { margin-top: 12vh; }
+      li a, li .row {
+        grid-template-columns: 2.4rem 1fr;
+        gap: 2px 12px;
+      }
+      .what { grid-column: 2; }
+      .go, .tag { display: none; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .mark, li {
+        animation: rise 700ms ease both;
+      }
+      li:nth-child(1) { animation-delay: 80ms; }
+      li:nth-child(2) { animation-delay: 140ms; }
+      li:nth-child(3) { animation-delay: 200ms; }
+      li:nth-child(4) { animation-delay: 260ms; }
+      li:nth-child(5) { animation-delay: 320ms; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <a href="https://github.com/meaningtech">meaningtech</a>
+      <span>five agents</span>
+    </header>
+
+    <div class="mark">
+      <svg class="flux" viewBox="0 0 1200 160" fill="none" aria-hidden="true">
+        <path d="M0 110C180 110 240 18 460 46C680 74 760 150 980 92C1100 60 1140 28 1200 18" stroke="#e07a3d" stroke-width="1.6"/>
+        <path d="M40 132C220 128 300 70 520 86C760 104 860 154 1200 70" stroke="#e07a3d" stroke-width="1" opacity="0.45"/>
+      </svg>
+      <h1>Flux<em>kit</em></h1>
+      <p class="lead">A toolkit for the developer. Five agents, on your machine, for the work around the code.</p>
+    </div>
+
+    <ol>
+      <li>
+        <a href="https://github.com/turinglabsorg/grog">
+          <span class="num">01</span>
+          <span class="name">grog</span>
+          <span class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord.</span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <div class="row">
+          <span class="num">02</span>
+          <span class="name">devo</span>
+          <span class="what">Read-only audits of GCP, AWS, and DigitalOcean.</span>
+          <span class="tag">private</span>
+        </div>
+      </li>
+      <li>
+        <a href="https://github.com/turinglabsorg/hush">
+          <span class="num">03</span>
+          <span class="name">hush</span>
+          <span class="what">Secrets by name. The agent uses them and never reads the value.</span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/turinglabsorg/argo">
+          <span class="num">04</span>
+          <span class="name">argo</span>
+          <span class="what">Security review on this machine. A fix is checked before it lands.</span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/turinglabsorg/ambox">
+          <span class="num">05</span>
+          <span class="name">ambox</span>
+          <span class="what">End-to-end encrypted mail for agents.</span>
+          <span class="go" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    </ol>
+
+    <footer>
+      <a href="https://github.com/meaningtech/fluxkit">source</a>
+      <span>meaningtech</span>
+    </footer>
+  </div>
+</body>
+</html>
