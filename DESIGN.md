@@ -42,3 +42,5 @@ The column is at most 40rem, centered, with the same stack at every width. At 14
 ## Open Graph
 
 `og.png` is 1200×630, black. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.” and the attribution Back to the Future. The page points `og:image` and `twitter:image` at `https://meaningtech.github.io/fluxkit/og.png`.
+
+The favicon is the same mark on black: `favicon.svg` for current browsers, `favicon.ico` at 16, 32, and 48, and `apple-touch-icon.png` at 180.
