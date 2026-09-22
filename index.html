@@ -7,7 +7,7 @@
   <meta name="description" content="Fluxkit is a toolkit of five agents for developers: grog, devo, hush, argo, and ambox.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Saira+Condensed:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
       --void: #050607;
@@ -16,6 +16,7 @@
       --amber: #ffb23a;
       --hot: #fff1c2;
       --plate: rgba(6, 7, 8, 0.72);
+      --led: #ff2a2a;
     }
 
     * { box-sizing: border-box; }
@@ -46,6 +47,7 @@
         linear-gradient(90deg, transparent 46%, #2a2e31 46% 54%, transparent 54%),
         radial-gradient(circle at 35% 32%, #f7fafb, #8b949a 42%, #3d4448 74%);
       box-shadow: 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1px rgba(0,0,0,.35);
+      z-index: 3;
     }
     .bolt.tl { top: 10px; left: 10px; }
     .bolt.tr { top: 10px; right: 10px; }
@@ -55,9 +57,7 @@
     .housing {
       min-height: calc(100vh - 32px);
       padding: 22px 26px 36px;
-      background:
-        radial-gradient(780px 420px at 50% 58%, rgba(255, 140, 20, 0.22), transparent 60%),
-        #070809;
+      background: #070809;
       box-shadow: inset 0 0 0 3px #9aa4aa, inset 0 0 40px rgba(0,0,0,.85);
     }
 
@@ -93,10 +93,10 @@
       line-height: 1.45;
     }
 
-    .unit {
+    .window {
       position: relative;
+      height: 320px;
       margin-top: 8px;
-      aspect-ratio: 1000 / 780;
     }
 
     .capacitor {
@@ -104,18 +104,22 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      overflow: visible;
     }
 
     .core {
-      transform-origin: 500px 360px;
+      transform-origin: 500px 390px;
       animation: heart 1.35s ease-in-out infinite;
     }
 
+    .plates {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
     .plate {
-      position: absolute;
-      z-index: 2;
-      width: min(250px, 28%);
+      display: block;
       padding: 12px 14px 13px;
       color: var(--ink);
       text-decoration: none;
@@ -128,11 +132,6 @@
       background: rgba(28, 16, 4, 0.82);
       outline: none;
     }
-    .p-grog { left: 0; top: 2%; }
-    .p-argo { right: 0; top: 2%; text-align: right; }
-    .p-hush { left: 0; top: 40%; }
-    .p-ambox { right: 0; top: 40%; text-align: right; }
-    .p-devo { left: 50%; bottom: 0; width: min(300px, 42%); transform: translateX(-50%); text-align: center; }
 
     .lamp {
       display: inline-block;
@@ -145,7 +144,6 @@
       animation: heart 1.35s ease-in-out infinite;
       vertical-align: middle;
     }
-    .p-argo .lamp, .p-ambox .lamp { margin-right: 0; margin-left: 8px; }
     .num {
       color: var(--amber);
       font-size: 11px;
@@ -167,6 +165,7 @@
       color: var(--mute);
       font-size: 12px;
       line-height: 1.4;
+      overflow-wrap: anywhere;
     }
 
     @keyframes heart {
@@ -174,32 +173,95 @@
       46% { opacity: 1; filter: brightness(1.35); }
     }
 
-    @media (max-width: 800px) {
-      .case { margin: 0; padding: 10px; }
-      .housing { padding: 16px 14px 28px; }
-      .what { overflow-wrap: anywhere; }
-      .unit {
-        aspect-ratio: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    @media (min-width: 801px) {
+      body { background: #0c0d0e; }
+      .case {
+        max-width: 1280px;
+        margin: 22px auto;
+        padding: 18px;
       }
-      .capacitor {
-        position: relative;
-        height: 320px;
-        order: -1;
+      .housing {
+        display: grid;
+        grid-template-columns: 390px minmax(0, 1fr);
+        grid-template-areas:
+          "head head"
+          "brand window"
+          "list window";
+        gap: 6px 22px;
+        min-height: calc(100vh - 80px);
+        padding: 20px 22px 22px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.03), transparent 80px),
+          #090a0c;
+      }
+      header { grid-area: head; color: #8e8680; }
+      .brand { grid-area: brand; align-self: start; }
+      .plates { grid-area: list; align-self: end; gap: 0; margin: 0; }
+      .window {
+        grid-area: window;
+        height: auto;
+        min-height: 640px;
+        margin: 0;
+        background:
+          radial-gradient(closest-side at 50% 46%, rgba(255, 120, 10, 0.22), transparent 72%),
+          repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.22) 2px 3px),
+          #040506;
+        box-shadow:
+          inset 0 0 0 1px #070809,
+          inset 0 0 0 7px #101214,
+          inset 0 0 0 9px #d5dde2,
+          inset 0 0 80px rgba(0, 0, 0, 0.65);
+      }
+      .word {
+        margin: 8px 0 0;
+        padding: 16px 14px 12px;
+        font-family: Orbitron, sans-serif;
+        font-weight: 800;
+        font-size: 2.7rem;
+        letter-spacing: 0.16em;
+        line-height: 1;
+        color: var(--led);
+        text-shadow: 0 0 4px #ff4d4d, 0 0 16px rgba(255, 20, 20, 0.9);
+        background:
+          repeating-linear-gradient(90deg, rgba(255, 40, 40, 0.05) 0 1px, transparent 1px 8px),
+          #140404;
+        border: 1px solid #6a2424;
+        box-shadow: inset 0 0 28px rgba(255, 0, 0, 0.28), 0 0 0 4px #141414, 0 0 0 5px #8a9298;
+      }
+      .lead {
+        margin: 12px 2px 16px;
+        max-width: none;
+        color: #ffb25a;
+        font-size: 0.86rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
       .plate {
-        position: static;
         width: auto;
-        text-align: left;
-        transform: none;
+        margin: 0;
+        padding: 9px 10px 10px;
+        background: linear-gradient(180deg, #16181b, #0c0d0f);
+        border: 0;
+        border-bottom: 1px solid rgba(255, 160, 50, 0.28);
+        border-left: 5px solid var(--led);
+        box-shadow: none;
       }
-      .p-argo .lamp, .p-ambox .lamp { margin-left: 0; margin-right: 8px; }
+      .plate:hover, .plate:focus-visible {
+        background: #1a1008;
+        border-bottom-color: var(--amber);
+        border-left-color: var(--amber);
+      }
+      .name {
+        font-family: Orbitron, sans-serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+      }
+      .what { font-size: 11.5px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .core, .lamp, .spark { animation: none; }
+      .core, .lamp { animation: none; }
     }
   </style>
 </head>
@@ -209,103 +271,107 @@
     <span class="bolt tr" aria-hidden="true"></span>
     <span class="bolt bl" aria-hidden="true"></span>
     <span class="bolt br" aria-hidden="true"></span>
-  <main class="housing">
-    <header>
-      <a href="https://github.com/meaningtech">meaningtech</a>
-      <a href="https://github.com/meaningtech/fluxkit">source</a>
-    </header>
+    <main class="housing">
+      <header>
+        <a href="https://github.com/meaningtech">meaningtech</a>
+        <a href="https://github.com/meaningtech/fluxkit">source</a>
+      </header>
 
-    <h1 class="word">Fluxkit</h1>
-    <p class="lead">Five agents, on your machine, for the work around the code. The current runs to the center.</p>
-
-    <section class="unit" aria-label="Fluxkit">
-      <svg class="capacitor" viewBox="0 0 1000 780" role="img" aria-label="Three conduits meeting at a glowing core">
-        <defs>
-          <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1000" height="780">
-            <feGaussianBlur stdDeviation="7" result="b"/>
-            <feMerge>
-              <feMergeNode in="b"/>
-              <feMergeNode in="b"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <filter id="coreglow" filterUnits="userSpaceOnUse" x="350" y="210" width="300" height="300">
-            <feGaussianBlur stdDeviation="14" result="b"/>
-            <feMerge>
-              <feMergeNode in="b"/>
-              <feMergeNode in="b"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <path id="arm-l" d="M250 150 L500 360"/>
-          <path id="arm-r" d="M750 150 L500 360"/>
-          <path id="arm-b" d="M500 610 L500 360"/>
-        </defs>
-
-        <path d="M250 150 L500 360" stroke="#3a2208" stroke-width="40" stroke-linecap="round"/>
-        <path d="M750 150 L500 360" stroke="#3a2208" stroke-width="40" stroke-linecap="round"/>
-        <path d="M500 610 L500 360" stroke="#3a2208" stroke-width="40" stroke-linecap="round"/>
-
-        <path d="M250 150 L500 360" stroke="#ff9a1a" stroke-width="28" stroke-linecap="round" filter="url(#glow)"/>
-        <path d="M750 150 L500 360" stroke="#ff9a1a" stroke-width="28" stroke-linecap="round" filter="url(#glow)"/>
-        <path d="M500 610 L500 360" stroke="#ff9a1a" stroke-width="28" stroke-linecap="round" filter="url(#glow)"/>
-
-        <path d="M250 150 L500 360" stroke="#fff6cf" stroke-width="8" stroke-linecap="round"/>
-        <path d="M750 150 L500 360" stroke="#fff6cf" stroke-width="8" stroke-linecap="round"/>
-        <path d="M500 610 L500 360" stroke="#fff6cf" stroke-width="8" stroke-linecap="round"/>
-
-        <g fill="#121416" stroke="#d5dde2" stroke-width="5">
-          <circle cx="250" cy="150" r="24"/>
-          <circle cx="750" cy="150" r="24"/>
-          <circle cx="500" cy="610" r="24"/>
-        </g>
-        <g fill="#fff1c2" filter="url(#glow)">
-          <circle cx="250" cy="150" r="8"/>
-          <circle cx="750" cy="150" r="8"/>
-          <circle cx="500" cy="610" r="8"/>
-        </g>
-
-        <circle class="core" cx="500" cy="360" r="46" fill="#fff6cf" filter="url(#coreglow)"/>
-        <circle cx="500" cy="360" r="58" fill="none" stroke="#e7eef2" stroke-width="6"/>
-        <circle cx="500" cy="360" r="18" fill="#fff"/>
-
-        <g fill="#fff8dc">
-          <circle r="5"><animateMotion dur="0.95s" repeatCount="indefinite" begin="0s"><mpath href="#arm-l"/></animateMotion></circle>
-          <circle r="3.5" opacity="0.8"><animateMotion dur="0.95s" repeatCount="indefinite" begin="0.32s"><mpath href="#arm-l"/></animateMotion></circle>
-          <circle r="5"><animateMotion dur="0.95s" repeatCount="indefinite" begin="0.12s"><mpath href="#arm-r"/></animateMotion></circle>
-          <circle r="3.5" opacity="0.8"><animateMotion dur="0.95s" repeatCount="indefinite" begin="0.44s"><mpath href="#arm-r"/></animateMotion></circle>
-          <circle r="5"><animateMotion dur="1.05s" repeatCount="indefinite" begin="0.2s"><mpath href="#arm-b"/></animateMotion></circle>
-          <circle r="3.5" opacity="0.8"><animateMotion dur="1.05s" repeatCount="indefinite" begin="0.55s"><mpath href="#arm-b"/></animateMotion></circle>
-        </g>
-      </svg>
-
-      <a class="plate p-grog" href="https://github.com/turinglabsorg/grog">
-        <span class="num"><span class="lamp"></span>01</span>
-        <span class="name">grog</span>
-        <span class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord.</span>
-      </a>
-      <div class="plate p-devo">
-        <span class="num"><span class="lamp"></span>02 · private</span>
-        <span class="name">devo</span>
-        <span class="what">Read-only audits of GCP, AWS, and DigitalOcean.</span>
+      <div class="brand">
+        <h1 class="word">Fluxkit</h1>
+        <p class="lead">Five agents, on your machine, for the work around the code. The current runs to the center.</p>
       </div>
-      <a class="plate p-hush" href="https://github.com/turinglabsorg/hush">
-        <span class="num"><span class="lamp"></span>03</span>
-        <span class="name">hush</span>
-        <span class="what">Secrets by name. The agent uses them and never reads the value.</span>
-      </a>
-      <a class="plate p-argo" href="https://github.com/turinglabsorg/argo">
-        <span class="num">04<span class="lamp"></span></span>
-        <span class="name">argo</span>
-        <span class="what">Security review on this machine. A fix is checked before it lands.</span>
-      </a>
-      <a class="plate p-ambox" href="https://github.com/turinglabsorg/ambox">
-        <span class="num">05<span class="lamp"></span></span>
-        <span class="name">ambox</span>
-        <span class="what">End-to-end encrypted mail for agents.</span>
-      </a>
-    </section>
-  </main>
+
+      <div class="window">
+        <svg class="capacitor" viewBox="130 90 740 640" role="img" aria-label="Three conduits meeting at a glowing core">
+          <defs>
+            <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1000" height="780">
+              <feGaussianBlur stdDeviation="7" result="b"/>
+              <feMerge>
+                <feMergeNode in="b"/>
+                <feMergeNode in="b"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <filter id="coreglow" filterUnits="userSpaceOnUse" x="350" y="240" width="300" height="300">
+              <feGaussianBlur stdDeviation="14" result="b"/>
+              <feMerge>
+                <feMergeNode in="b"/>
+                <feMergeNode in="b"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <path id="arm-l" d="M180 150 L500 390"/>
+            <path id="arm-r" d="M820 150 L500 390"/>
+            <path id="arm-b" d="M500 660 L500 390"/>
+          </defs>
+
+          <path d="M180 150 L500 390" stroke="#3a2208" stroke-width="46" stroke-linecap="round"/>
+          <path d="M820 150 L500 390" stroke="#3a2208" stroke-width="46" stroke-linecap="round"/>
+          <path d="M500 660 L500 390" stroke="#3a2208" stroke-width="46" stroke-linecap="round"/>
+
+          <path d="M180 150 L500 390" stroke="#ff9a1a" stroke-width="32" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M820 150 L500 390" stroke="#ff9a1a" stroke-width="32" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M500 660 L500 390" stroke="#ff9a1a" stroke-width="32" stroke-linecap="round" filter="url(#glow)"/>
+
+          <path d="M180 150 L500 390" stroke="#fff6cf" stroke-width="9" stroke-linecap="round"/>
+          <path d="M820 150 L500 390" stroke="#fff6cf" stroke-width="9" stroke-linecap="round"/>
+          <path d="M500 660 L500 390" stroke="#fff6cf" stroke-width="9" stroke-linecap="round"/>
+
+          <g fill="#121416" stroke="#d5dde2" stroke-width="6">
+            <circle cx="180" cy="150" r="28"/>
+            <circle cx="820" cy="150" r="28"/>
+            <circle cx="500" cy="660" r="28"/>
+          </g>
+          <g fill="#fff1c2" filter="url(#glow)">
+            <circle cx="180" cy="150" r="9"/>
+            <circle cx="820" cy="150" r="9"/>
+            <circle cx="500" cy="660" r="9"/>
+          </g>
+
+          <circle class="core" cx="500" cy="390" r="52" fill="#fff6cf" filter="url(#coreglow)"/>
+          <circle cx="500" cy="390" r="66" fill="none" stroke="#e7eef2" stroke-width="7"/>
+          <circle cx="500" cy="390" r="20" fill="#fff"/>
+
+          <g fill="#fff8dc">
+            <circle r="6"><animateMotion dur="0.9s" repeatCount="indefinite"><mpath href="#arm-l"/></animateMotion></circle>
+            <circle r="4" opacity="0.8"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.3s"><mpath href="#arm-l"/></animateMotion></circle>
+            <circle r="6"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.12s"><mpath href="#arm-r"/></animateMotion></circle>
+            <circle r="4" opacity="0.8"><animateMotion dur="0.9s" repeatCount="indefinite" begin="0.42s"><mpath href="#arm-r"/></animateMotion></circle>
+            <circle r="6"><animateMotion dur="1s" repeatCount="indefinite" begin="0.18s"><mpath href="#arm-b"/></animateMotion></circle>
+            <circle r="4" opacity="0.8"><animateMotion dur="1s" repeatCount="indefinite" begin="0.5s"><mpath href="#arm-b"/></animateMotion></circle>
+          </g>
+        </svg>
+      </div>
+
+      <div class="plates">
+        <a class="plate" href="https://github.com/turinglabsorg/grog">
+          <span class="num"><span class="lamp"></span>01</span>
+          <span class="name">grog</span>
+          <span class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord.</span>
+        </a>
+        <div class="plate">
+          <span class="num"><span class="lamp"></span>02 · private</span>
+          <span class="name">devo</span>
+          <span class="what">Read-only audits of GCP, AWS, and DigitalOcean.</span>
+        </div>
+        <a class="plate" href="https://github.com/turinglabsorg/hush">
+          <span class="num"><span class="lamp"></span>03</span>
+          <span class="name">hush</span>
+          <span class="what">Secrets by name. The agent uses them and never reads the value.</span>
+        </a>
+        <a class="plate" href="https://github.com/turinglabsorg/argo">
+          <span class="num"><span class="lamp"></span>04</span>
+          <span class="name">argo</span>
+          <span class="what">Security review on this machine. A fix is checked before it lands.</span>
+        </a>
+        <a class="plate" href="https://github.com/turinglabsorg/ambox">
+          <span class="num"><span class="lamp"></span>05</span>
+          <span class="name">ambox</span>
+          <span class="what">End-to-end encrypted mail for agents.</span>
+        </a>
+      </div>
+    </main>
   </div>
 </body>
 </html>
