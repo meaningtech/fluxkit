@@ -38,3 +38,7 @@ Open is a link to `AGENTS.md` with `target="_blank"` and `rel="noopener noreferr
 ## Viewports
 
 The column is at most 40rem, centered, with the same stack at every width. At 1440, 1280, 1024, 768, and 390 the page does not scroll sideways. Descriptions wrap. The mark stays under 200 pixels wide.
+
+## Open Graph
+
+`og.png` is 1200×630, black. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.” and the attribution Back to the Future. The page points `og:image` and `twitter:image` at `https://meaningtech.github.io/fluxkit/og.png`.
