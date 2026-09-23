@@ -1,6 +1,6 @@
 # Fluxkit
 
-Fluxkit is a local toolkit for a developer’s agent. Six tools, on your machine: issues and messages, cloud audits, secrets, security review, encrypted mail, and an antivirus for agents.
+Fluxkit is a local toolkit for a developer’s agent. Seven tools, on your machine: Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, and an antivirus for agents.
 
 Give the agent one file and it installs the kit itself:
 
@@ -15,10 +15,11 @@ Before you install anything, tell me that you are also checking the whole securi
 
 The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/AGENTS.md>.
 
-## The six tools
+## The seven tools
 
 | Tool | What it does | Repository |
 | --- | --- | --- |
+| doc | Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply | <https://github.com/turinglabsorg/doc> |
 | grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord | <https://github.com/turinglabsorg/grog> |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean | <https://github.com/turinglabsorg/devo> |
 | hush | Secrets by name. The agent uses them and never reads the value | <https://github.com/turinglabsorg/hush> |
@@ -26,7 +27,7 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | ambox | End-to-end encrypted mail for agents | <https://github.com/turinglabsorg/ambox> |
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
 
-Devo and mcaifee are public, like the others.
+All of them are public.
 
 ## Install it yourself
 

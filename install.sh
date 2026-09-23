@@ -45,6 +45,7 @@ clone_public hush https://github.com/turinglabsorg/hush.git || true
 clone_public argo https://github.com/turinglabsorg/argo.git || true
 clone_public ambox https://github.com/turinglabsorg/ambox.git || true
 clone_public mcaifee https://github.com/turinglabsorg/mcaifee.git || true
+clone_public doc https://github.com/turinglabsorg/doc.git || true
 
 if [ -f "$SRC/grog/skill/install.sh" ] && have node && have npm && have jq; then
   note "installing grog. Empty answers skip tokens."
@@ -67,6 +68,104 @@ if [ -f "$SRC/hush/install.sh" ]; then
   fi
 else
   note "skipped hush install. Checkout missing."
+fi
+
+if [ -f "$SRC/doc/bin/doc" ]; then
+  note "installing doc"
+  chmod +x "$SRC/doc/bin/doc" "$SRC/doc/bin/doc-hook" 2>/dev/null || true
+  mkdir -p "$HOME/.local/bin"
+  ln -sfn "$SRC/doc/bin/doc" "$HOME/.local/bin/doc"
+  note "doc CLI linked in $HOME/.local/bin"
+  if have python3; then
+    DOC_HOOK="$SRC/doc/bin/doc-hook" python3 - <<'PY'
+import json, os, tempfile
+
+hook = os.environ["DOC_HOOK"]
+specs = [
+    ("PreToolUse", "Bash", hook + " publish_guard"),
+    ("Stop", None, hook + " reply_check"),
+    ("UserPromptSubmit", None, hook + " skill_router"),
+]
+
+def commands(node):
+    found = []
+    if isinstance(node, dict):
+        if isinstance(node.get("command"), str):
+            found.append(node["command"])
+        for value in node.values():
+            found.extend(commands(value))
+    elif isinstance(node, list):
+        for value in node:
+            found.extend(commands(value))
+    return found
+
+def install(path):
+    data = {}
+    if os.path.exists(path):
+        try:
+            with open(path) as handle:
+                data = json.load(handle)
+        except json.JSONDecodeError:
+            print("fluxkit: skipped doc hooks in %s. The file is not valid JSON." % path)
+            return
+    if not isinstance(data, dict):
+        print("fluxkit: skipped doc hooks in %s. The file is not an object." % path)
+        return
+    hooks = data.setdefault("hooks", {})
+    if not isinstance(hooks, dict):
+        print("fluxkit: skipped doc hooks in %s. hooks is not an object." % path)
+        return
+    changed = False
+    for event, matcher, command in specs:
+        entries = hooks.setdefault(event, [])
+        if not isinstance(entries, list):
+            print("fluxkit: skipped %s in %s. It is not a list." % (event, path))
+            continue
+        if command in commands(entries):
+            continue
+        if matcher:
+            bucket = next((item for item in entries if isinstance(item, dict) and item.get("matcher") == matcher), None)
+            if bucket is None:
+                bucket = {"matcher": matcher, "hooks": []}
+                entries.append(bucket)
+        else:
+            bucket = next((item for item in entries if isinstance(item, dict) and "matcher" not in item), None)
+            if bucket is None:
+                bucket = {"hooks": []}
+                entries.append(bucket)
+        hook_list = bucket.setdefault("hooks", [])
+        if isinstance(hook_list, list):
+            hook_list.append({"type": "command", "command": command, "timeout": 20})
+            changed = True
+    if not changed:
+        print("fluxkit: doc hooks already present in %s" % path)
+        return
+    directory = os.path.dirname(path) or "."
+    os.makedirs(directory, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=directory, prefix=".doc-hooks.")
+    try:
+        with os.fdopen(fd, "w") as handle:
+            json.dump(data, handle, indent=2)
+            handle.write("\n")
+        if os.path.exists(path):
+            os.chmod(tmp, os.stat(path).st_mode & 0o777)
+        else:
+            os.chmod(tmp, 0o600)
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+    print("fluxkit: doc hooks registered in %s" % path)
+
+home = os.environ["HOME"]
+install(os.path.join(home, ".claude", "settings.json"))
+install(os.path.join(home, ".codex", "hooks.json"))
+PY
+  else
+    note "skipped doc hooks. python3 is not on PATH."
+  fi
+else
+  note "skipped doc install. Checkout missing."
 fi
 
 if [ -f "$SRC/mcaifee/install.sh" ]; then
@@ -171,7 +270,7 @@ else
   fail=1
 fi
 
-for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush mcaifee; do
+for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush mcaifee doc; do
   if have "$tool"; then
     note "ok command $tool"
   else

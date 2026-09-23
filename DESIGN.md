@@ -8,11 +8,12 @@ The mark is the conduit: three strokes meeting at a point. The stem points up. T
 
 Monospace. No display font, no color rows, no case, no wood.
 
-The name of the page is `fluxkit`, set like a prompt. Under it, seven lines. Each line is a name and one sentence. The names are links. The sentences have the same weight.
+The name of the page is `fluxkit`, set like a prompt. Under it, eight lines. Each line is a name and one sentence. The names are links. The sentences have the same weight.
 
 | Name | Sentence | Link |
 | --- | --- | --- |
-| scott | Portable Claude Code. grog, devo, hush, argo, ambox, and mcaifee are already in it and ready to use. | github.com/turinglabsorg/great-scott |
+| scott | Portable Claude Code. doc, grog, devo, hush, argo, ambox, and mcaifee are already in it and ready to use. | github.com/turinglabsorg/great-scott |
+| doc | Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply. | github.com/turinglabsorg/doc |
 | grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord. | github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. | github.com/turinglabsorg/devo |
 | hush | Secrets by name. The agent uses them and never reads the value. | github.com/turinglabsorg/hush |

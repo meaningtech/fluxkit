@@ -16,7 +16,8 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 
 | Tool | Use it for | Repository |
 | --- | --- | --- |
-| scott | Portable Claude Code with grog, devo, hush, argo, ambox, and mcaifee already installed | https://github.com/turinglabsorg/great-scott |
+| scott | Portable Claude Code with doc, grog, devo, hush, argo, ambox, and mcaifee already installed | https://github.com/turinglabsorg/great-scott |
+| doc | Scott's sidekick. It checks a comment before publishing and keeps estimates out of a reply | https://github.com/turinglabsorg/doc |
 | grog | GitHub issues, Linear issues, pull requests, Telegram, WhatsApp, Discord | https://github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. It uses the cloud CLIs already on the machine | https://github.com/turinglabsorg/devo |
 | hush | A secret by name. You run a command with the secret injected. You never print the value | https://github.com/turinglabsorg/hush |
@@ -42,6 +43,7 @@ sh install.sh
 
 The script prints the same instruction you already told the human, then installs what it can without secrets:
 
+- doc, the CLI in `~/.local/bin`, and the Claude Code and Codex hooks
 - grog, from the public repository, skipping tokens when the prompts are empty
 - hush, into `~/.local/bin`, with the agent skill
 - mcaifee, into `~/.local/bin`, with the agent skill
@@ -61,6 +63,7 @@ It looks at:
 - the gcloud guard at `~/.claude/hooks/gcloud-guard.sh`
 - whether `argo` is installed, and `argo doctor` when the command exists
 - whether `mcaifee` is installed
+- whether `doc` is installed
 - whether Docker, uv, Ollama, and `signal-cli` are present
 
 Do not open those files to “see what’s inside”. A path and a mode are enough. If a check fails, say which one and the next command. Do not repair a cloud login, copy a credential, or weaken a file mode unless the human asks.
@@ -92,6 +95,7 @@ uv run python scripts/install_models.py
 
 - Secrets go through hush by name. Never print a value, a token, or a private key.
 - npm, pnpm, Yarn, and Bun installs go through mcaifee. Do not run the package manager directly until mcaifee has allowed it.
+- Doc checks a comment before it is published and keeps estimates out of a reply. Do not go around a denial.
 - Devo stays read-only unless the human explicitly asks for a change. Never run bare `gcloud`. Use `devo gcloud --profile NAME`.
 - Argo reviews and fixes the project the human opened. Do not point it at a machine, an account, or a repository the human did not name.
 - Ambox mail is decrypted locally. Do not copy `~/.ambox` into a repository or a chat.
