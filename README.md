@@ -1,6 +1,6 @@
 # Fluxkit
 
-Fluxkit is a local toolkit for a developer’s agent. Six tools, on your machine: issues and messages, cloud audits, secrets, security review, encrypted mail, and npm installs.
+Fluxkit is a local toolkit for a developer’s agent. Six tools, on your machine: issues and messages, cloud audits, secrets, security review, encrypted mail, and an antivirus for agents.
 
 Give the agent one file and it installs the kit itself:
 
@@ -24,7 +24,7 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | hush | Secrets by name. The agent uses them and never reads the value | <https://github.com/turinglabsorg/hush> |
 | argo | Security review on this machine. A fix is checked before it lands | <https://github.com/turinglabsorg/argo> |
 | ambox | End-to-end encrypted mail for agents | <https://github.com/turinglabsorg/ambox> |
-| mcaifee | npm, pnpm, Yarn, and Bun installs. The package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
+| mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
 
 Devo and mcaifee are public, like the others.
 

@@ -22,7 +22,7 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 | hush | A secret by name. You run a command with the secret injected. You never print the value | https://github.com/turinglabsorg/hush |
 | argo | Security review of the project you open. Fixes are checked before they count | https://github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail. Decryption stays on this machine | https://github.com/turinglabsorg/ambox |
-| mcaifee | npm, pnpm, Yarn, and Bun installs. The package is checked before it runs | https://github.com/turinglabsorg/mcaifee |
+| mcaifee | Antivirus for agents. npm, pnpm, Yarn, and Bun installs are checked before they run | https://github.com/turinglabsorg/mcaifee |
 
 Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 

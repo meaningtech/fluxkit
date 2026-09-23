@@ -18,7 +18,7 @@ The name of the page is `fluxkit`, set like a prompt. Under it, seven lines. Eac
 | hush | Secrets by name. The agent uses them and never reads the value. | github.com/turinglabsorg/hush |
 | argo | Security review on this machine. A fix is checked before it lands. | github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail for agents. Decryption stays on this machine. | github.com/turinglabsorg/ambox |
-| mcaifee | npm installs. The package is checked before it runs. | github.com/turinglabsorg/mcaifee |
+| mcaifee | Antivirus for agents. A package is checked before it runs. | github.com/turinglabsorg/mcaifee |
 
 Devo is a public repository. The page does not call it private.
 
