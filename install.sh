@@ -44,6 +44,7 @@ clone_public devo https://github.com/turinglabsorg/devo.git || true
 clone_public hush https://github.com/turinglabsorg/hush.git || true
 clone_public argo https://github.com/turinglabsorg/argo.git || true
 clone_public ambox https://github.com/turinglabsorg/ambox.git || true
+clone_public mcaifee https://github.com/turinglabsorg/mcaifee.git || true
 
 if [ -f "$SRC/grog/skill/install.sh" ] && have node && have npm && have jq; then
   note "installing grog. Empty answers skip tokens."
@@ -68,13 +69,33 @@ else
   note "skipped hush install. Checkout missing."
 fi
 
-if have npm; then
-  note "installing the ambox CLI. This does not register an address."
-  if npm install -g ambox >/dev/null 2>&1; then
+if [ -f "$SRC/mcaifee/install.sh" ]; then
+  note "installing mcaifee"
+  if sh "$SRC/mcaifee/install.sh" --agent-skill; then
+    note "mcaifee installed in ${MCAIFEE_INSTALL_DIR:-$HOME/.local/bin}"
+  else
+    note "mcaifee installer failed"
+  fi
+else
+  note "skipped mcaifee install. Checkout missing."
+fi
+
+mcaifee_bin=""
+if [ -x "${MCAIFEE_INSTALL_DIR:-$HOME/.local/bin}/mcaifee" ]; then
+  mcaifee_bin="${MCAIFEE_INSTALL_DIR:-$HOME/.local/bin}/mcaifee"
+elif have mcaifee; then
+  mcaifee_bin="mcaifee"
+fi
+
+if have npm && [ -n "$mcaifee_bin" ]; then
+  note "installing the ambox CLI through mcaifee. This does not register an address."
+  if "$mcaifee_bin" npm install -g ambox; then
     note "ambox CLI installed"
   else
-    note "ambox CLI was not installed. npm install -g ambox needs a working npm prefix."
+    note "ambox CLI was not installed. mcaifee did not allow npm install -g ambox."
   fi
+elif have npm; then
+  note "skipped ambox. mcaifee is not installed, so the npm install was not run."
 else
   note "skipped ambox. npm is not on PATH."
 fi
@@ -121,6 +142,7 @@ fail=0
 list="$ROOT/security-files"
 : > "$list"
 [ -f "$HOME/.grog/config.json" ] && printf '%s\n' "$HOME/.grog/config.json" >> "$list"
+[ -f "$HOME/.mcaifee/config.json" ] && printf '%s\n' "$HOME/.mcaifee/config.json" >> "$list"
 if [ -d "$HOME/.hush" ]; then
   find "$HOME/.hush" -type f >> "$list" 2>/dev/null || true
 else
@@ -149,7 +171,7 @@ else
   fail=1
 fi
 
-for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush; do
+for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush mcaifee; do
   if have "$tool"; then
     note "ok command $tool"
   else

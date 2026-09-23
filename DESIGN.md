@@ -8,16 +8,17 @@ The mark is the conduit: three strokes meeting at a point. The stem points up. T
 
 Monospace. No display font, no color rows, no case, no wood.
 
-The name of the page is `fluxkit`, set like a prompt. Under it, six lines. Each line is a name and one sentence. The names are links. The sentences have the same weight.
+The name of the page is `fluxkit`, set like a prompt. Under it, seven lines. Each line is a name and one sentence. The names are links. The sentences have the same weight.
 
 | Name | Sentence | Link |
 | --- | --- | --- |
-| scott | Portable Claude Code. grog, devo, hush, argo, and ambox are already in it and ready to use. | github.com/turinglabsorg/great-scott |
+| scott | Portable Claude Code. grog, devo, hush, argo, ambox, and mcaifee are already in it and ready to use. | github.com/turinglabsorg/great-scott |
 | grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord. | github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. | github.com/turinglabsorg/devo |
 | hush | Secrets by name. The agent uses them and never reads the value. | github.com/turinglabsorg/hush |
 | argo | Security review on this machine. A fix is checked before it lands. | github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail for agents. Decryption stays on this machine. | github.com/turinglabsorg/ambox |
+| mcaifee | npm installs. The package is checked before it runs. | github.com/turinglabsorg/mcaifee |
 
 Devo is a public repository. The page does not call it private.
 

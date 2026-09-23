@@ -16,12 +16,13 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 
 | Tool | Use it for | Repository |
 | --- | --- | --- |
-| scott | Portable Claude Code with grog, devo, hush, argo, and ambox already installed | https://github.com/turinglabsorg/great-scott |
+| scott | Portable Claude Code with grog, devo, hush, argo, ambox, and mcaifee already installed | https://github.com/turinglabsorg/great-scott |
 | grog | GitHub issues, Linear issues, pull requests, Telegram, WhatsApp, Discord | https://github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. It uses the cloud CLIs already on the machine | https://github.com/turinglabsorg/devo |
 | hush | A secret by name. You run a command with the secret injected. You never print the value | https://github.com/turinglabsorg/hush |
 | argo | Security review of the project you open. Fixes are checked before they count | https://github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail. Decryption stays on this machine | https://github.com/turinglabsorg/ambox |
+| mcaifee | npm, pnpm, Yarn, and Bun installs. The package is checked before it runs | https://github.com/turinglabsorg/mcaifee |
 
 Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 
@@ -43,7 +44,8 @@ The script prints the same instruction you already told the human, then installs
 
 - grog, from the public repository, skipping tokens when the prompts are empty
 - hush, into `~/.local/bin`, with the agent skill
-- ambox, the CLI only. It does not register an address
+- mcaifee, into `~/.local/bin`, with the agent skill
+- ambox, the CLI only, through mcaifee. It does not register an address
 - devo, from the public repository
 - argo, the source checkout only. It does not download models
 
@@ -58,6 +60,7 @@ It looks at:
 - the mode of `~/.grog/config.json`, hush files, and ambox private keys. Other-readable or other-writable is a failure
 - the gcloud guard at `~/.claude/hooks/gcloud-guard.sh`
 - whether `argo` is installed, and `argo doctor` when the command exists
+- whether `mcaifee` is installed
 - whether Docker, uv, Ollama, and `signal-cli` are present
 
 Do not open those files to “see what’s inside”. A path and a mode are enough. If a check fails, say which one and the next command. Do not repair a cloud login, copy a credential, or weaken a file mode unless the human asks.
@@ -88,6 +91,7 @@ uv run python scripts/install_models.py
 ## Rules while you use the kit
 
 - Secrets go through hush by name. Never print a value, a token, or a private key.
+- npm, pnpm, Yarn, and Bun installs go through mcaifee. Do not run the package manager directly until mcaifee has allowed it.
 - Devo stays read-only unless the human explicitly asks for a change. Never run bare `gcloud`. Use `devo gcloud --profile NAME`.
 - Argo reviews and fixes the project the human opened. Do not point it at a machine, an account, or a repository the human did not name.
 - Ambox mail is decrypted locally. Do not copy `~/.ambox` into a repository or a chat.
