@@ -44,6 +44,6 @@ The column is at most 40rem, centered, with the same stack at every width. At 14
 
 ## Open Graph
 
-`og.png` is 1200×630, black. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.” and the attribution Back to the Future. The page points `og:image` and `twitter:image` at `https://meaningtech.github.io/fluxkit/og.png`.
+`og.png` is 1200×630, black. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee. When the kit changes, redraw this card and bump the `?v=` on `og:image` and `twitter:image`. The description on those tags is the same sentence as `meta name="description"`.
 
 The favicon is the same mark on black: `favicon.svg` for current browsers, `favicon.ico` at 16, 32, and 48, and `apple-touch-icon.png` at 180.
