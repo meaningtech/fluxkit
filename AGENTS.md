@@ -1,6 +1,6 @@
 # Fluxkit
 
-You are installing Fluxkit for the human. Fluxkit is a local toolkit of five agents. It is not a hosted product. The tools run on this machine.
+You are installing Fluxkit for the human. Fluxkit is a local toolkit. It is not a hosted product. The tools run on this machine. scott is the portable Claude Code that already carries the others.
 
 ## Say this first
 
@@ -16,6 +16,7 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 
 | Tool | Use it for | Repository |
 | --- | --- | --- |
+| scott | Portable Claude Code with grog, devo, hush, argo, and ambox already installed | https://github.com/turinglabsorg/great-scott |
 | grog | GitHub issues, Linear issues, pull requests, Telegram, WhatsApp, Discord | https://github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. It uses the cloud CLIs already on the machine | https://github.com/turinglabsorg/devo |
 | hush | A secret by name. You run a command with the secret injected. You never print the value | https://github.com/turinglabsorg/hush |
