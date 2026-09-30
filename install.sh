@@ -211,6 +211,65 @@ else
   note "skipped devo install"
 fi
 
+# The AWS CLI, for devo and for the agent. User-level install only: no sudo, no
+# profile, no key. Inside scott it runs as a host tool, so nothing goes in the
+# shared home from the container.
+install_aws() {
+  bin="$HOME/.local/bin"
+  share="$HOME/.local/share"
+  tmp="$(mktemp -d)" || return 1
+  mkdir -p "$bin" "$share"
+  case "$(uname -s)" in
+    Darwin)
+      curl -fsSL -o "$tmp/AWSCLIV2.pkg" https://awscli.amazonaws.com/AWSCLIV2.pkg || { rm -rf "$tmp"; return 1; }
+      cat > "$tmp/choices.xml" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <array>
+    <dict>
+      <key>choiceAttribute</key>
+      <string>customLocation</string>
+      <key>attributeSetting</key>
+      <string>$share</string>
+      <key>choiceIdentifier</key>
+      <string>default</string>
+    </dict>
+  </array>
+</plist>
+EOF
+      installer -pkg "$tmp/AWSCLIV2.pkg" -target CurrentUserHomeDirectory -applyChoiceChangesXML "$tmp/choices.xml" >/dev/null || { rm -rf "$tmp"; return 1; }
+      cli="$share/aws-cli"
+      ;;
+    Linux)
+      curl -fsSL -o "$tmp/awscliv2.zip" "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" || { rm -rf "$tmp"; return 1; }
+      (cd "$tmp" && unzip -q awscliv2.zip) || { rm -rf "$tmp"; return 1; }
+      "$tmp/aws/install" --update -i "$share/aws-cli" -b "$tmp/bin" >/dev/null || { rm -rf "$tmp"; return 1; }
+      cli="$share/aws-cli/v2/current/bin"
+      ;;
+    *)
+      rm -rf "$tmp"
+      return 1
+      ;;
+  esac
+  ln -sfn "$cli/aws" "$bin/aws"
+  ln -sfn "$cli/aws_completer" "$bin/aws_completer"
+  rm -rf "$tmp"
+}
+
+if have aws; then
+  note "ok aws is already installed: $(aws --version 2>&1 | cut -d' ' -f1)"
+elif [ -n "${SCOTT_BRIDGE:-}" ] || [ -x /usr/local/bin/scott-host ]; then
+  note "skipped aws inside scott. Install it on the host and list aws in CLAUDE_DOCKER_HOST_TOOLS"
+else
+  note "installing the AWS CLI for this user. It does not configure a profile or a key"
+  if install_aws && "$HOME/.local/bin/aws" --version >/dev/null 2>&1; then
+    note "aws installed: $("$HOME/.local/bin/aws" --version 2>&1 | cut -d' ' -f1)"
+  else
+    note "the AWS CLI installer failed"
+  fi
+fi
+
 note "argo source is at $SRC/argo when the clone worked. Models are not downloaded."
 note "pastazzo source is at $SRC/pastazzo when the clone worked. The desktop app is not installed."
 
@@ -253,6 +312,15 @@ if [ -d "$HOME/.ambox/agents" ]; then
   find "$HOME/.ambox/agents" \( -name 'private.pem' -o -name 'config.json' \) >> "$list" 2>/dev/null || true
 else
   note "absent $HOME/.ambox"
+fi
+if [ -d "$HOME/.aws" ]; then
+  [ -f "$HOME/.aws/credentials" ] && printf '%s\n' "$HOME/.aws/credentials" >> "$list"
+  find "$HOME/.aws/sso/cache" "$HOME/.aws/cli/cache" -type f >> "$list" 2>/dev/null || true
+  if [ -f "$HOME/.aws/credentials" ] && grep -q 'aws_secret_access_key' "$HOME/.aws/credentials" 2>/dev/null; then
+    note "WARN $HOME/.aws/credentials holds static keys. Keep keys in hush and point the profile at a credential_process"
+  fi
+else
+  note "absent $HOME/.aws"
 fi
 # The pastazzo history is the human's clipboard: passwords and tokens included.
 for path in "$HOME/.local/share/pastazzo/items" "$HOME/.config/pastazzo/sync.json" "$HOME/.local/share/pastazzo-server"; do

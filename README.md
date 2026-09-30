@@ -45,9 +45,9 @@ What still needs a person:
 - hush: `signal-cli`, then `hush signal link` from your phone
 - ambox: `ambox register --agent-id NAME`, once. Back up the private key
 - argo: Python 3.12, uv, Docker, and Ollama. The models are large. Say yes before they download
-- devo: `gcloud`, `aws`, or `doctl` for the clouds you actually use
+- devo: `gcloud` or `doctl` for the clouds you actually use. The installer adds the AWS CLI itself, without a profile or a key
 - pastazzo: a desktop. On GNOME on Wayland it builds with cargo and wants a log out and back in; on macOS you build it from Terminal on the Mac itself. Sync needs an invite to a pastazzo server
 
 ## What the security check looks at
 
-It does not read secret values. It checks whether the sensitive files are private (the pastazzo clipboard history and its sync keys included), whether the gcloud guard hook is installed, and whether Argo can run a doctor check. The agent has to tell you that this check is happening, and then tell you what it found.
+It does not read secret values. It checks whether the sensitive files are private (AWS credentials and caches, and the pastazzo clipboard history and its sync keys, included), warns about static AWS keys, and checks whether the gcloud guard hook is installed, and whether Argo can run a doctor check. The agent has to tell you that this check is happening, and then tell you what it found.

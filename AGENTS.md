@@ -50,6 +50,7 @@ The script prints the same instruction you already told the human, then installs
 - mcaifee, into `~/.local/bin`, with the agent skill
 - ambox, the CLI only, through mcaifee. It does not register an address
 - devo, from the public repository
+- the AWS CLI v2, when `aws` is missing: a user-level install in `~/.local/share/aws-cli`, with the command in `~/.local/bin`. It configures no profile and no key. Inside scott it is skipped, because `aws` runs there as a host tool
 - argo, the source checkout only. It does not download models
 - pastazzo, the source checkout only. It is a desktop app: it is not built and not installed
 
@@ -61,7 +62,8 @@ The installer checks the security system after the installs. Read that section a
 
 It looks at:
 
-- the mode of `~/.grog/config.json`, hush files, ambox private keys, the pastazzo history (`~/.local/share/pastazzo/items`), the pastazzo sync keys file (`~/.config/pastazzo/sync.json`), and the pastazzo server keys. Other-readable or other-writable is a failure. The clipboard history holds whatever the human copied, passwords included
+- the mode of `~/.grog/config.json`, hush files, ambox private keys, `~/.aws/credentials`, the AWS SSO and CLI caches, the pastazzo history (`~/.local/share/pastazzo/items`), the pastazzo sync keys file (`~/.config/pastazzo/sync.json`), and the pastazzo server keys. Other-readable or other-writable is a failure. The clipboard history holds whatever the human copied, passwords included
+- static keys in `~/.aws/credentials`, reported as a warning
 - the gcloud guard at `~/.claude/hooks/gcloud-guard.sh`
 - whether `argo` is installed, and `argo doctor` when the command exists
 - whether `mcaifee` is installed
@@ -112,6 +114,7 @@ Pastazzo sync needs an invite link from a pastazzo server the human runs or trus
 - npm, pnpm, Yarn, and Bun installs go through mcaifee. Do not run the package manager directly until mcaifee has allowed it.
 - Doc checks a comment before it is published and keeps estimates out of a reply. Do not go around a denial.
 - Devo stays read-only unless the human explicitly asks for a change. Never run bare `gcloud`. Use `devo gcloud --profile NAME`.
+- AWS keys live in hush. A profile gets them through a `credential_process` that runs `hush run`; never write a key into `~/.aws/credentials`. Inside scott, `aws` runs on the host.
 - Argo reviews and fixes the project the human opened. Do not point it at a machine, an account, or a repository the human did not name.
 - Ambox mail is decrypted locally. Do not copy `~/.ambox` into a repository or a chat.
 - Grog multiline messages go in a file. Do not pass a message body as an escaped `\n` string.
