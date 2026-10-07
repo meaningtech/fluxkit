@@ -1,6 +1,6 @@
 # Fluxkit
 
-Fluxkit is a local toolkit for a developer’s agent. Seven tools, on your machine: Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, and an antivirus for agents.
+Fluxkit is a local toolkit for a developer’s agent, and for the developer next to it. Nine tools, on your machine: a portable Claude Code, Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, an antivirus for agents, and a clipboard for you.
 
 Give the agent one file and it installs the kit itself:
 
@@ -15,10 +15,11 @@ Before you install anything, tell me that you are also checking the whole securi
 
 The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/AGENTS.md>.
 
-## The seven tools
+## The nine tools
 
 | Tool | What it does | Repository |
 | --- | --- | --- |
+| scott | Portable Claude Code. doc, grog, devo, hush, argo, ambox, and mcaifee are already in it | <https://github.com/turinglabsorg/great-scott> |
 | doc | Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply | <https://github.com/turinglabsorg/doc> |
 | grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord | <https://github.com/turinglabsorg/grog> |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean | <https://github.com/turinglabsorg/devo> |
@@ -26,6 +27,7 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | argo | Security review on this machine. A fix is checked before it lands | <https://github.com/turinglabsorg/argo> |
 | ambox | End-to-end encrypted mail for agents | <https://github.com/turinglabsorg/ambox> |
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
+| pastazzo | Clipboard history for GNOME and macOS, synced across your devices end to end. It is for you, not for the agent | <https://github.com/turinglabsorg/pastazzo> |
 
 All of them are public.
 
@@ -35,7 +37,7 @@ All of them are public.
 curl -fsSL https://raw.githubusercontent.com/meaningtech/fluxkit/main/install.sh | sh
 ```
 
-The script clones the public repositories under `~/.fluxkit/src`, installs the pieces that do not need a secret, and then checks the security system. It does not download Argo’s local models, and it does not register an ambox address. Those steps need you, and the agent asks before doing them.
+The script clones the public repositories under `~/.fluxkit/src`, installs the pieces that do not need a secret, and then checks the security system. It does not download Argo’s local models, it does not register an ambox address, and it does not install the pastazzo desktop app. Those steps need you, and the agent asks before doing them.
 
 What still needs a person:
 
@@ -44,7 +46,8 @@ What still needs a person:
 - ambox: `ambox register --agent-id NAME`, once. Back up the private key
 - argo: Python 3.12, uv, Docker, and Ollama. The models are large. Say yes before they download
 - devo: `gcloud`, `aws`, or `doctl` for the clouds you actually use
+- pastazzo: a desktop. On GNOME on Wayland it builds with cargo and wants a log out and back in; on macOS you build it from Terminal on the Mac itself. Sync needs an invite to a pastazzo server
 
 ## What the security check looks at
 
-It does not read secret values. It checks whether the sensitive files are private, whether the gcloud guard hook is installed, and whether Argo can run a doctor check. The agent has to tell you that this check is happening, and then tell you what it found.
+It does not read secret values. It checks whether the sensitive files are private (the pastazzo clipboard history and its sync keys included), whether the gcloud guard hook is installed, and whether Argo can run a doctor check. The agent has to tell you that this check is happening, and then tell you what it found.
