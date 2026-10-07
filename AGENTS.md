@@ -1,6 +1,6 @@
 # Fluxkit
 
-You are installing Fluxkit for the human. Fluxkit is a local toolkit. It is not a hosted product. The tools run on this machine. scott is the portable Claude Code that already carries the others.
+You are installing Fluxkit for the human. Fluxkit is a local toolkit. It is not a hosted product. The tools run on this machine. scott is the portable Claude Code that already carries the others. pastazzo is the one tool that is not for you: it is the human's clipboard, on their desktop.
 
 ## Say this first
 
@@ -24,6 +24,7 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 | argo | Security review of the project you open. Fixes are checked before they count | https://github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail. Decryption stays on this machine | https://github.com/turinglabsorg/ambox |
 | mcaifee | Antivirus for agents. npm, pnpm, Yarn, and Bun installs are checked before they run | https://github.com/turinglabsorg/mcaifee |
+| pastazzo | The human's clipboard history on GNOME (Wayland) and macOS, with optional end-to-end encrypted sync between their devices. Not an agent tool, and not inside scott | https://github.com/turinglabsorg/pastazzo |
 
 Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 
@@ -50,6 +51,7 @@ The script prints the same instruction you already told the human, then installs
 - ambox, the CLI only, through mcaifee. It does not register an address
 - devo, from the public repository
 - argo, the source checkout only. It does not download models
+- pastazzo, the source checkout only. It is a desktop app: it is not built and not installed
 
 `~/.local/bin` must be on `PATH`.
 
@@ -59,12 +61,13 @@ The installer checks the security system after the installs. Read that section a
 
 It looks at:
 
-- the mode of `~/.grog/config.json`, hush files, and ambox private keys. Other-readable or other-writable is a failure
+- the mode of `~/.grog/config.json`, hush files, ambox private keys, the pastazzo history (`~/.local/share/pastazzo/items`), the pastazzo sync keys file (`~/.config/pastazzo/sync.json`), and the pastazzo server keys. Other-readable or other-writable is a failure. The clipboard history holds whatever the human copied, passwords included
 - the gcloud guard at `~/.claude/hooks/gcloud-guard.sh`
 - whether `argo` is installed, and `argo doctor` when the command exists
 - whether `mcaifee` is installed
 - whether `doc` is installed
 - whether Docker, uv, Ollama, and `signal-cli` are present
+- whether `pastazzo` and `pastazzo-sync` are installed
 
 Do not open those files to “see what’s inside”. A path and a mode are enough. If a check fails, say which one and the next command. Do not repair a cloud login, copy a credential, or weaken a file mode unless the human asks.
 
@@ -89,7 +92,19 @@ uv sync --frozen --dev
 uv run python scripts/install_worker.py
 uv run argo doctor
 uv run python scripts/install_models.py
+
+# pastazzo on GNOME on Wayland. It builds with cargo and may ask sudo for
+# missing packages. The human logs out and back in afterwards
+curl -fsSL https://raw.githubusercontent.com/turinglabsorg/pastazzo/main/scripts/install.sh | bash
+
+# pastazzo on macOS, from Terminal on the Mac itself, not over SSH or inside
+# scott. signing.sh runs once and asks for the login password
+cd ~/.fluxkit/src/pastazzo
+sh apple/macos/signing.sh
+sh apple/macos/install.sh
 ```
+
+Pastazzo sync needs an invite link from a pastazzo server the human runs or trusts, and a password only the human types. Point them at `pastazzo-sync join` in the pastazzo README. Do not create the account for them.
 
 ## Rules while you use the kit
 
@@ -100,3 +115,4 @@ uv run python scripts/install_models.py
 - Argo reviews and fixes the project the human opened. Do not point it at a machine, an account, or a repository the human did not name.
 - Ambox mail is decrypted locally. Do not copy `~/.ambox` into a repository or a chat.
 - Grog multiline messages go in a file. Do not pass a message body as an escaped `\n` string.
+- The pastazzo history is the human's clipboard: passwords, tokens, and private screenshots. Do not read `~/.local/share/pastazzo` or list it with `pastazzo` unless the human asks for a specific item.

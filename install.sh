@@ -46,6 +46,7 @@ clone_public argo https://github.com/turinglabsorg/argo.git || true
 clone_public ambox https://github.com/turinglabsorg/ambox.git || true
 clone_public mcaifee https://github.com/turinglabsorg/mcaifee.git || true
 clone_public doc https://github.com/turinglabsorg/doc.git || true
+clone_public pastazzo https://github.com/turinglabsorg/pastazzo.git || true
 
 if [ -f "$SRC/grog/skill/install.sh" ] && have node && have npm && have jq; then
   note "installing grog. Empty answers skip tokens."
@@ -211,6 +212,7 @@ else
 fi
 
 note "argo source is at $SRC/argo when the clone worked. Models are not downloaded."
+note "pastazzo source is at $SRC/pastazzo when the clone worked. The desktop app is not installed."
 
 printf '%s\n' "" "SECURITY CHECK" "No secret values are read."
 
@@ -252,6 +254,10 @@ if [ -d "$HOME/.ambox/agents" ]; then
 else
   note "absent $HOME/.ambox"
 fi
+# The pastazzo history is the human's clipboard: passwords and tokens included.
+for path in "$HOME/.local/share/pastazzo/items" "$HOME/.config/pastazzo/sync.json" "$HOME/.local/share/pastazzo-server"; do
+  [ -e "$path" ] && printf '%s\n' "$path" >> "$list"
+done
 if [ ! -s "$list" ]; then
   note "no secret files to check yet"
 else
@@ -270,7 +276,7 @@ else
   fail=1
 fi
 
-for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush mcaifee doc; do
+for tool in git node jq docker uv ollama signal-cli gcloud aws doctl argo hush mcaifee doc pastazzo pastazzo-sync; do
   if have "$tool"; then
     note "ok command $tool"
   else
