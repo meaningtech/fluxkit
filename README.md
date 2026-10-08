@@ -4,12 +4,12 @@ Fluxkit is a local toolkit for a developer’s agent, and for the developer next
 
 Give the agent one file and it installs the kit itself:
 
-[AGENTS.md](https://meaningtech.github.io/fluxkit/AGENTS.md)
+[AGENTS.md](https://fluxkit.dev/AGENTS.md)
 
 Paste this to your agent:
 
 ```text
-Read https://meaningtech.github.io/fluxkit/AGENTS.md and do what it says.
+Read https://fluxkit.dev/AGENTS.md and do what it says.
 Before you install anything, tell me that you are also checking the whole security system.
 ```
 

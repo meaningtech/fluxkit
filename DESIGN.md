@@ -76,7 +76,7 @@ Devo is a public repository. The page does not call it private. Pastazzo is not 
 Copy writes exactly:
 
 ```text
-Read https://meaningtech.github.io/fluxkit/AGENTS.md and do what it says.
+Read https://fluxkit.dev/AGENTS.md and do what it says.
 Before you install anything, tell me that you are also checking the whole security system.
 ```
 
@@ -92,6 +92,6 @@ Open is a link to `AGENTS.md` with `target="_blank"` and `rel="noopener noreferr
 
 ## Open Graph
 
-`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee, pastazzo. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image`. The description on those tags is the same sentence as `meta name="description"`.
+`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee, pastazzo. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image` (both on https://fluxkit.dev). The description on those tags is the same sentence as `meta name="description"`.
 
 The favicon is the same mark on black: `favicon.svg` for current browsers, `favicon.ico` at 16, 32, and 48, and `apple-touch-icon.png` at 180.
