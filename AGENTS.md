@@ -30,7 +30,12 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 
 Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 
-The core installer does not install Ziggy or Milo. Set them up only when the human asks, following their repository instructions. Ziggy uses hush-held publishing credentials. Milo needs PostgreSQL and mailbox authorization; do not access the human's mail without their request.
+## Optional companions
+
+The core installer does not install Ziggy or Milo. Set them up only when the human asks:
+
+- Ziggy: follow its [installation guide](https://github.com/turinglabsorg/ziggy#install). Publishing credentials stay in hush.
+- Milo: follow its [Linux setup guide](https://github.com/turinglabsorg/milo#run-on-linux). It needs PostgreSQL and mailbox authorization; do not access the human's mail without their request.
 
 ## Install
 
