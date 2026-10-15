@@ -1,6 +1,6 @@
 # Fluxkit
 
-Fluxkit is a local toolkit for a developer’s agent, and for the developer next to it. Nine tools, on your machine: a portable Claude Code, Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, an antivirus for agents, and a clipboard for you.
+Fluxkit is a local toolkit for a developer’s agent, and for the developer next to it. Eleven open-source tools: a portable Claude Code, Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, an antivirus for agents, a social media agent, an email client, and a clipboard for you.
 
 Give the agent one file and it installs the kit itself:
 
@@ -15,7 +15,7 @@ Before you install anything, tell me that you are also checking the whole securi
 
 The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/AGENTS.md>.
 
-## The nine tools
+## The eleven tools
 
 | Tool | What it does | Repository |
 | --- | --- | --- |
@@ -27,9 +27,13 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | argo | Security review on this machine. A fix is checked before it lands | <https://github.com/turinglabsorg/argo> |
 | ambox | End-to-end encrypted mail for agents | <https://github.com/turinglabsorg/ambox> |
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
+| ziggy | Social media manager for coding agents: brand assets, videos, publishing, and replies, with a playbook per brand | <https://github.com/turinglabsorg/ziggy> |
+| milo | Email client for Gmail and IMAP/SMTP, with an Ollama assistant for summaries and proposed replies, and a shared archive across devices | <https://github.com/turinglabsorg/milo> |
 | pastazzo | Clipboard history for GNOME and macOS, synced across your devices end to end. It is for you, not for the agent | <https://github.com/turinglabsorg/pastazzo> |
 
 All of them are public.
+
+Ziggy and Milo are optional companions with their own setup; the core installer does not install them. Follow the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install) or the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux). Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization.
 
 ## Install it yourself
 

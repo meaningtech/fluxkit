@@ -44,11 +44,12 @@ Fonts are self-hosted in `fonts/` (OFL, licenses next to the files). Do not load
 
 The page measure is `min(72rem, 100% - 2rem)`. Nothing scrolls sideways at 1440, 1280, 1024, 768, or 390.
 
-1. **Bar.** `meaningtech / fluxkit` on the left, `AGENTS.md` and `source` on the right.
+1. **Bar.** `meaningtech / fluxkit` on the left, `AGENTS.md` and `source` on the right. The row wraps when the links cannot fit, including at 320px.
 2. **Hero.** Two columns above 860px, stacked below. Left: the prompt line `$ fluxkit`, the wordmark, the line “Where we're going, we don't need roads.”, one sentence on what the kit is, and two actions: copy the agent prompt, open `AGENTS.md`. Right: the flux capacitor housing (corner screws, a small `FLUX CAPACITOR` plate, the mark with light running down the conduits).
-3. **Time circuits.** Three readouts in a row, each a label plate and digits: `TOOLS 09` red, `SECRETS PRINTED 00` green, `MPH 88` amber. The first two are facts; the third is the joke. Update `TOOLS` when the kit changes.
-4. **The kit.** Section label `01 the kit`, a heading, and a short note on the right. Then two groups, each under a `//` label. Tools are numbered 01 to 09 in the order of the table below.
+3. **Time circuits.** Three readouts in a row, each a label plate and digits: `TOOLS 11` red, `SECRETS PRINTED 00` green, `MPH 88` amber. The first two are facts; the third is the joke. Update `TOOLS` when the kit changes.
+4. **The kit.** Section label `01 the kit`, a heading, and a short note on the right. Then three groups, each under a `//` label. Tools are numbered 01 to 11 in the order of the table below.
    - `// for the agent`: one grid. scott is the first cell, two columns wide, with the seven tools it carries as `+ name` chips. Then doc, grog, devo, hush, argo, ambox, mcaifee. Three columns above 1024px, two above 640px (scott and the last cell span both), one below. Each cell: the number, a short tag, the name, one sentence, and `turinglabsorg/<repo>` with an arrow. The whole cell is the link.
+   - `// social & email`: Ziggy (09) and Milo (10), using the same cells in a two-column `.grid.companions`, stacked at 640px. Ziggy is the social media agent; Milo is the human's email client with an Ollama assistant. They have separate setup and are not bundled inside scott or installed by the core installer. The installation section states this explicitly.
    - `// next to you`: pastazzo. It is not an agent tool: it is for the human working next to the agent. Its cell is full width, with the pastazzo orange on its number, its tag, its top border and a soft glow above it, a keycap row `Shift Alt V`, and on the right a dark mock of the shelf: search field, a transfer pill, four items with age and device, the first one selected. The row of items is clipped with a fade; it never widens the page.
 5. **Ask your agent.** Section label `02 ask your agent`. A terminal window: the human's message (the exact prompt below), the agent's first line (the security sentence), then installer lines with `ok` in green. Lines appear one after the other on load. Under it, copy and open, and the `curl` line for people who install it themselves, with its own copy.
 6. **Footer.** The quote and its attribution, `meaningtech`, `MIT`.
@@ -67,6 +68,8 @@ Cells are square, 1px `--rule` border, `--panel` fill. On hover a cell's border 
 | argo | Security review on this machine. A fix is checked before it lands. | review | github.com/turinglabsorg/argo |
 | ambox | End-to-end encrypted mail for agents. Decryption stays on this machine. | mail | github.com/turinglabsorg/ambox |
 | mcaifee | Antivirus for agents. A package is checked before it runs. | packages | github.com/turinglabsorg/mcaifee |
+| ziggy | Your agent's social media manager. Brand assets, short videos, publishing, and replies, with a separate playbook for each brand. | social agent | github.com/turinglabsorg/ziggy |
+| milo | Your inbox, with room to think. An email client for Gmail and IMAP/SMTP, with Ollama for summaries and proposed replies. Your archive follows you across devices. | email client | github.com/turinglabsorg/milo |
 | pastazzo | Clipboard history for GNOME and macOS. Everything you copy lands on a shelf, synced across your devices end to end. | clipboard | github.com/turinglabsorg/pastazzo |
 
 Devo is a public repository. The page does not call it private. Pastazzo is not inside scott: it needs a desktop.
@@ -92,6 +95,6 @@ Open is a link to `AGENTS.md` with `target="_blank"` and `rel="noopener noreferr
 
 ## Open Graph
 
-`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee, pastazzo. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image` (both on https://fluxkit.dev). The description on those tags is the same sentence as `meta name="description"`.
+`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo. The tool line is centered, balanced, and capped at 1080px so names can wrap within the card. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image` (both on https://fluxkit.dev). The description on those tags is the same sentence as `meta name="description"`.
 
 The favicon is the same mark on black: `favicon.svg` for current browsers, `favicon.ico` at 16, 32, and 48, and `apple-touch-icon.png` at 180.

@@ -18,20 +18,20 @@
   <link rel="preload" href="fonts/martian-mono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/dseg7-classic-bold.woff2" as="font" type="font/woff2" crossorigin>
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, and pastazzo.">
+  <meta name="description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
   <meta property="og:title" content="Fluxkit">
-  <meta property="og:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, and pastazzo.">
+  <meta property="og:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fluxkit.dev/">
-  <meta property="og:image" content="https://fluxkit.dev/og.png?v=10">
+  <meta property="og:image" content="https://fluxkit.dev/og.png?v=11">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, pastazzo.">
+  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Fluxkit">
-  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, and pastazzo.">
-  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=10">
-  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, pastazzo.">
+  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
+  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=11">
+  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
   <style>
     @font-face {
       font-family: "Martian Mono";
@@ -114,6 +114,7 @@
     /* bar */
     .bar {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
@@ -452,6 +453,8 @@
     .cell:hover .repo svg { transform: translate(2px, -2px); }
 
     .cell.vehicle { grid-column: span 2; }
+    .grid.companions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.companions .cell { grid-column: auto; }
     .vehicle h3 { font-size: clamp(36px, 5vw, 56px); letter-spacing: -.045em; }
     .vehicle .what { max-width: 34rem; }
     .riders { display: flex; flex-wrap: wrap; gap: .4rem; margin: .4rem 0 0; padding: 0; list-style: none; }
@@ -667,6 +670,7 @@
     }
     @media (max-width: 640px) {
       .grid { grid-template-columns: minmax(0, 1fr); }
+      .grid.companions { grid-template-columns: minmax(0, 1fr); }
       .cell.vehicle, .grid .cell:last-child { grid-column: auto; }
       .cell { min-height: 0; }
       .circuits { grid-template-columns: minmax(0, 1fr); }
@@ -718,7 +722,7 @@
           <p class="prompt rise" style="--d:0"><b>$</b> sh install.sh<span class="cursor" aria-hidden="true"></span></p>
           <h1 class="rise" style="--d:1">fluxkit</h1>
           <p class="quote rise" style="--d:2">“Where we're going, we don't need roads.”<cite>Back to the Future</cite></p>
-          <p class="lede rise" style="--d:3">A local toolkit for your coding agent, and for you next to it. Nine tools, on your machine. Give the agent one file and it installs the kit itself, then checks the whole security system.</p>
+          <p class="lede rise" style="--d:3">A local toolkit for your coding agent, and for you next to it. Eleven open-source tools for code, social channels, email, and your clipboard. Give the agent one file to install the core and check the whole security system.</p>
           <div class="cta rise" style="--d:4">
             <button type="button" class="btn primary" data-copy="agent-prompt">
               <svg aria-hidden="true"><use href="#i-copy"/></svg>
@@ -766,7 +770,7 @@
       <div class="circuits rise" style="--d:5" aria-label="Time circuits">
         <div class="readout red">
           <span class="name">Tools in the kit</span>
-          <span class="digits" role="img" aria-label="9 tools"><span class="ghost" aria-hidden="true">88</span><span class="lit" aria-hidden="true" data-count="9">09</span></span>
+          <span class="digits" role="img" aria-label="11 tools"><span class="ghost" aria-hidden="true">88</span><span class="lit" aria-hidden="true" data-count="11">11</span></span>
         </div>
         <div class="readout green">
           <span class="name">Secrets printed</span>
@@ -782,9 +786,9 @@
         <div class="section-head">
           <div>
             <p class="label"><b>01</b> the kit</p>
-            <h2 id="kit-title">One vehicle, seven passengers, and a clipboard for you.</h2>
+            <h2 id="kit-title">One vehicle. Tools for the work around it.</h2>
           </div>
-          <p>Every tool is a public repository and runs on this machine. The agent tools ride inside scott. Pastazzo is for the person at the keyboard.</p>
+          <p>Seven agent tools ride inside scott. Add Ziggy for social channels and Milo for email; Pastazzo keeps your clipboard close. Every repository is public.</p>
         </div>
 
         <p class="group">for the agent</p>
@@ -842,10 +846,26 @@
           </a>
         </div>
 
+        <p class="group">social &amp; email</p>
+        <div class="grid companions">
+          <a class="cell" href="https://github.com/turinglabsorg/ziggy">
+            <div class="cell-top"><span class="num">09</span><span class="tag">social agent</span></div>
+            <h3>ziggy</h3>
+            <p class="what">Your agent's social media manager. Brand assets, short videos, publishing, and replies, with a separate playbook for each brand.</p>
+            <span class="repo">turinglabsorg/ziggy <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="cell" href="https://github.com/turinglabsorg/milo">
+            <div class="cell-top"><span class="num">10</span><span class="tag">email client</span></div>
+            <h3>milo</h3>
+            <p class="what">Your inbox, with room to think. An email client for Gmail and IMAP/SMTP, with Ollama for summaries and proposed replies. Your archive follows you across devices.</p>
+            <span class="repo">turinglabsorg/milo <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+
         <p class="group">next to you</p>
         <a class="cell shelf-cell" href="https://github.com/turinglabsorg/pastazzo">
           <div class="copy">
-            <div class="cell-top"><span class="num">09</span><span class="tag">clipboard</span></div>
+            <div class="cell-top"><span class="num">11</span><span class="tag">clipboard</span></div>
             <h3>pastazzo</h3>
             <p class="what">Clipboard history for GNOME and macOS. Everything you copy lands on a shelf, synced across your devices end to end. Not an agent tool: the one you reach for while the agent works.</p>
             <div class="keys" aria-label="Shortcut Shift Alt V"><kbd>Shift</kbd><kbd>Alt</kbd><kbd>V</kbd><span>opens the shelf</span></div>
@@ -872,7 +892,7 @@
             <p class="label"><b>02</b> ask your agent</p>
             <h2 id="install-title">One file. The agent does the rest, and tells you what it checked.</h2>
           </div>
-          <p>The installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. It never reads a secret value. Tokens, models, and addresses wait for your yes.</p>
+          <p>The core installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. Tokens, models, and addresses wait for your yes. Ziggy and Milo have their own setup in their repositories.</p>
         </div>
 
         <div class="ask-grid">
