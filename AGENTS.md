@@ -1,6 +1,6 @@
 # Fluxkit
 
-You are installing Fluxkit for the human. Fluxkit is a local toolkit. It is not a hosted product. The tools run on this machine. scott is the portable Claude Code that already carries doc, grog, devo, hush, argo, ambox, and mcaifee. Ziggy and Milo are optional companions with separate setup. Milo is the human's email client; pastazzo is their clipboard, on their desktop.
+You are installing Fluxkit for the human. Fluxkit is a local toolkit. It is not a hosted product. The tools run on this machine. scott is the portable Claude Code that already carries doc, grog, devo, hush, argo, ambox, and mcaifee. Ziggy, Milo, and Cora are optional companions with separate setup. Milo is the human's email client; pastazzo is their clipboard, on their desktop.
 
 ## Say this first
 
@@ -26,16 +26,18 @@ If the human writes Italian, the sentence is: "Sto installando Fluxkit e sto con
 | mcaifee | Antivirus for agents. npm, pnpm, Yarn, and Bun installs are checked before they run | https://github.com/turinglabsorg/mcaifee |
 | ziggy | Social media management: brand assets, short videos, publishing, and replies within a per-brand playbook | https://github.com/turinglabsorg/ziggy |
 | milo | The human's email client for Gmail and IMAP/SMTP, with an Ollama assistant and a shared archive across devices | https://github.com/turinglabsorg/milo |
+| cora | Always-on agents for the human, each with its own Linux desktop: Discord or Telegram, layered memory, routines, SSH, and requests to the human's phone | https://github.com/turinglabsorg/cora |
 | pastazzo | The human's clipboard history on GNOME (Wayland) and macOS, with optional end-to-end encrypted sync between their devices. Not an agent tool, and not inside scott | https://github.com/turinglabsorg/pastazzo |
 
 Devo is public. Clone it with the others. Do not ask the human to paste a token into the chat.
 
 ## Optional companions
 
-The core installer does not install Ziggy or Milo. Set them up only when the human asks:
+The core installer does not install Ziggy, Milo, or Cora. Set them up only when the human asks:
 
 - Ziggy: follow its [installation guide](https://github.com/turinglabsorg/ziggy#install). Publishing credentials stay in hush.
 - Milo: follow its [Linux setup guide](https://github.com/turinglabsorg/milo#run-on-linux). It needs PostgreSQL and mailbox authorization; do not access the human's mail without their request.
+- Cora: follow its [run guide](https://github.com/turinglabsorg/cora#run). It needs Docker, a machine that stays on, and the Claude Code or Codex subscription (or an Ollama Cloud key); its secrets stay in hush, and the human pastes bot tokens in its panel, never in the chat.
 
 ## Install
 

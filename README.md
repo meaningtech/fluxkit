@@ -29,11 +29,12 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
 | ziggy | Social media manager for coding agents: brand assets, videos, publishing, and replies, with a playbook per brand | <https://github.com/turinglabsorg/ziggy> |
 | milo | Email client for Gmail and IMAP/SMTP, with an Ollama assistant for summaries and proposed replies, and a shared archive across devices | <https://github.com/turinglabsorg/milo> |
+| cora | Always-on agents, each with its own Linux desktop: Discord or Telegram, layered memory, routines, SSH, and requests to your phone | <https://github.com/turinglabsorg/cora> |
 | pastazzo | Clipboard history for GNOME and macOS, synced across your devices end to end. It is for you, not for the agent | <https://github.com/turinglabsorg/pastazzo> |
 
 All of them are public.
 
-Ziggy and Milo are optional companions with their own setup; the core installer does not install them. Follow the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install) or the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux). Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization.
+Ziggy, Milo, and Cora are optional companions with their own setup; the core installer does not install them. Follow the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install), the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux), or [Cora's run guide](https://github.com/turinglabsorg/cora#run). Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization; Cora needs Docker, a machine that stays on, and the Claude Code or Codex subscription (or an Ollama Cloud key).
 
 ## Install it yourself
 
