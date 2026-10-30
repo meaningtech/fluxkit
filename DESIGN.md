@@ -2,7 +2,7 @@
 
 A flux capacitor console. Black ground, one white mark that carries light, monospace everywhere, and the time circuits of the DeLorean as the only color. The page is a single file, `index.html`, with its CSS and a small script inline.
 
-The mark is the conduit: three strokes meeting at a point. The stem points up. The two arms point down. That is the usual figure turned 180 degrees. It is white, with a white bloom, and it is the only drawing on the page; the other picture is a mock of pastazzo's shelf. In the hero it sits in a housing, the flux capacitor box, and light runs down each conduit into the core.
+The mark is the conduit: three strokes meeting at a point. The stem points up. The two arms point down. That is the usual figure turned 180 degrees. It is white, with a white bloom, and it is the only drawing on the page; the other pictures are mocks: Cora's channel with its agents' desktops, and pastazzo's shelf. In the hero it sits in a housing, the flux capacitor box, and light runs down each conduit into the core.
 
 ## Color
 
@@ -20,8 +20,9 @@ The mark is the conduit: three strokes meeting at a point. The stem points up. T
 | `--tc-green` | `#2bff88` | Time circuits, second readout, `ok` lines in the terminal |
 | `--tc-amber` | `#ffb21e` | Time circuits, third readout, the blinking cursor |
 | `--pastazzo` | `#ff7a1a` | The pastazzo cell only |
+| `--cora` | `#f2a93b` | The Cora cell only |
 
-The three time-circuit colors appear in the readouts and, sparingly, in the terminal transcript. Nothing else on the page is colored. The pastazzo orange is pastazzo's own icon color, and it never leaves pastazzo's cell.
+The three time-circuit colors appear in the readouts and, sparingly, in the terminal transcript. Nothing else on the page is colored. The pastazzo orange is pastazzo's own icon color, and it never leaves pastazzo's cell. The Cora amber is the one accent of Cora's own panel, and it never leaves Cora's cell.
 
 The ground is black with a faint radial bloom behind the mark and a fixed grain overlay at low opacity that does not catch clicks.
 
@@ -45,11 +46,12 @@ Fonts are self-hosted in `fonts/` (OFL, licenses next to the files). Do not load
 The page measure is `min(72rem, 100% - 2rem)`. Nothing scrolls sideways at 1440, 1280, 1024, 768, or 390.
 
 1. **Bar.** `meaningtech / fluxkit` on the left, `AGENTS.md` and `source` on the right. The row wraps when the links cannot fit, including at 320px.
-2. **Hero.** Two columns above 860px, stacked below. Left: the prompt line `$ fluxkit`, the wordmark, the line “Where we're going, we don't need roads.”, one sentence on what the kit is, and two actions: copy the agent prompt, open `AGENTS.md`. Right: the flux capacitor housing (corner screws, a small `FLUX CAPACITOR` plate, the mark with light running down the conduits).
+2. **Hero.** Two columns above 860px, stacked below. Left: the prompt line `$ fluxkit`, the wordmark, the line “Where we're going, we don't need roads.”, one sentence on what the kit is (agents of your own first, then the toolkit for the coding agent, then the clipboard), and two actions: copy the agent prompt, open `AGENTS.md`. Right: the flux capacitor housing (corner screws, a small `FLUX CAPACITOR` plate, the mark with light running down the conduits).
 3. **Time circuits.** Three readouts in a row, each a label plate and digits: `TOOLS 12` red, `SECRETS PRINTED 00` green, `MPH 88` amber. The first two are facts; the third is the joke. Update `TOOLS` when the kit changes.
-4. **The kit.** Section label `01 the kit`, a heading, and a short note on the right. Then three groups, each under a `//` label. Tools are numbered 01 to 12 in the order of the table below.
-   - `// for the agent`: one grid. scott is the first cell, two columns wide, with the seven tools it carries as `+ name` chips. Then doc, grog, devo, hush, argo, ambox, mcaifee. Three columns above 1024px, two above 640px (scott and the last cell span both), one below. Each cell: the number, a short tag, the name, one sentence, and `turinglabsorg/<repo>` with an arrow. The whole cell is the link.
-   - `// companions`: Ziggy (09), Milo (10), and Cora (11), using the same cells and the same grid as the agent tools: three columns above 1024px, two above 640px (the last cell spans both), one below. Ziggy is the social media agent; Milo is the human's email client with an Ollama assistant; Cora runs the human's always-on agents, each on its own computer. They have separate setup and are not bundled inside scott or installed by the core installer. The installation section states this explicitly.
+4. **The kit.** Section label `01 the kit`, the heading “Agents of your own. Tools for the one in your terminal.”, and a short note on the right. Then four groups, each under a `//` label. Tools are numbered 01 to 12 in the order of the table below. Each ordinary cell: the number, a short tag, the name, one sentence, and `turinglabsorg/<repo>` with an arrow. The whole cell is the link.
+   - `// agents of your own`: Cora, the flagship, top left and full width. Its cell carries the Cora amber on its number, its tag, its top border and a soft glow above it. Left: the name at the largest size on the page after the wordmark, one sentence, and two rows of chips, `lives on` (Discord, Slack, Telegram) and `thinks with` (Claude Code, Codex, Grok Build, Muse Code, Ollama). Right: a dark mock of a channel, `# launch` with an `on air` lamp, three lines where the human names an agent (`@Ada`, an amber mention) and it answers, and under them the three agents' desktops: Ada working (a browser, an amber outline, a pointer that moves), Brio on a routine (a chart), Lux asleep (a dark screen). One column below 1024px. Cora has separate setup and is not installed by the core installer.
+   - `// for your coding agent`: one grid of eight ordinary cells: scott, then doc, grog, devo, hush, argo, ambox, mcaifee. scott is a cell like the others; its sentence says the next seven ride inside it. Four columns above 1024px, two above 640px, one below.
+   - `// companions`: Ziggy (10) and Milo (11), two columns above 640px, one below. Ziggy is the social media agent; Milo is the human's email client with an Ollama assistant. They have separate setup and are not bundled inside scott or installed by the core installer. The installation section states this explicitly, for Cora too.
    - `// next to you`: pastazzo. It is not an agent tool: it is for the human working next to the agent. Its cell is full width, with the pastazzo orange on its number, its tag, its top border and a soft glow above it, a keycap row `Shift Alt V`, and on the right a dark mock of the shelf: search field, a transfer pill, four items with age and device, the first one selected. The row of items is clipped with a fade; it never widens the page.
 5. **Ask your agent.** Section label `02 ask your agent`. A terminal window: the human's message (the exact prompt below), the agent's first line (the security sentence), then installer lines with `ok` in green. Lines appear one after the other on load. Under it, copy and open, and the `curl` line for people who install it themselves, with its own copy.
 6. **Footer.** The quote and its attribution, `meaningtech`, `MIT`.
@@ -60,9 +62,10 @@ Cells are square, 1px `--rule` border, `--panel` fill. On hover a cell's border 
 
 | Name | Sentence | Tag | Link |
 | --- | --- | --- | --- |
-| scott | Portable Claude Code. doc, grog, devo, hush, argo, ambox, and mcaifee are already in it and ready to use. | vehicle | github.com/turinglabsorg/great-scott |
+| cora | Agents that live with your team, each on its own computer. They answer when named, work many threads at once, remember, run routines, and ask you on your phone when they need you. | resident agents | github.com/turinglabsorg/cora |
+| scott | Portable Claude Code. The next seven tools are already inside and ready to use. | vehicle | github.com/turinglabsorg/great-scott |
 | doc | Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply. | guard | github.com/turinglabsorg/doc |
-| grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord. | issues, chat | github.com/turinglabsorg/grog |
+| grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord. Now with a desktop of its own: a real browser, where a site sees a person. | issues, chat | github.com/turinglabsorg/grog |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean. | cloud | github.com/turinglabsorg/devo |
 | hush | Secrets by name. The agent uses them and never reads the value. | secrets | github.com/turinglabsorg/hush |
 | argo | Security review on this machine. A fix is checked before it lands. | review | github.com/turinglabsorg/argo |
@@ -70,7 +73,6 @@ Cells are square, 1px `--rule` border, `--panel` fill. On hover a cell's border 
 | mcaifee | Antivirus for agents. A package is checked before it runs. | packages | github.com/turinglabsorg/mcaifee |
 | ziggy | Your agent's social media manager. Brand assets, short videos, publishing, and replies, with a separate playbook for each brand. | social agent | github.com/turinglabsorg/ziggy |
 | milo | Your inbox, with room to think. An email client for Gmail and IMAP/SMTP, with Ollama for summaries and proposed replies. Your archive follows you across devices. | email client | github.com/turinglabsorg/milo |
-| cora | Always-on agents, each on its own computer. They talk on Discord or Telegram, remember, run routines, and ask you on your phone when they need you. | resident agents | github.com/turinglabsorg/cora |
 | pastazzo | Clipboard history for GNOME and macOS. Everything you copy lands on a shelf, synced across your devices end to end. | clipboard | github.com/turinglabsorg/pastazzo |
 
 Devo is a public repository. The page does not call it private. Pastazzo is not inside scott: it needs a desktop.
@@ -92,10 +94,11 @@ Open is a link to `AGENTS.md` with `target="_blank"` and `rel="noopener noreferr
 
 - Light pulses run down the three conduits into the core, staggered, on a loop. The core breathes.
 - On load the hero rises in, the readouts count up once, the terminal lines appear one by one.
-- `prefers-reduced-motion: reduce` turns all of it off: no pulses, no count, every line visible.
+- In Cora's mock the `on air` lamp and Ada's LED breathe, and Ada's pointer moves across her browser.
+- `prefers-reduced-motion: reduce` turns all of it off: no pulses, no count, every line visible, the pointer still.
 
 ## Open Graph
 
-`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo. The tool line is centered, balanced, and capped at 1080px so names can wrap within the card. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image` (both on https://fluxkit.dev). The description on those tags is the same sentence as `meta name="description"`.
+`og.png` is 1200×630, black, drawn from `og.html` with a headless browser. The same mark, stem up, in white. Under it, the line “Where we're going, we don't need roads.”, the attribution Back to the Future, and the current tool names in order: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo. The tool line is centered, balanced, and capped at 1080px so names can wrap within the card. When the kit changes, update `og.html`, redraw the card, and bump the `?v=` on `og:image` and `twitter:image` (both on https://fluxkit.dev). The description on those tags is the same sentence as `meta name="description"`.
 
 The favicon is the same mark on black: `favicon.svg` for current browsers, `favicon.ico` at 16, 32, and 48, and `apple-touch-icon.png` at 180.

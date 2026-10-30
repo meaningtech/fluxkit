@@ -1,6 +1,6 @@
 # Fluxkit
 
-Fluxkit is a local toolkit for a developer’s agent, and for the developer next to it. Eleven open-source tools: a portable Claude Code, Scott's sidekick, issues and messages, cloud audits, secrets, security review, encrypted mail, an antivirus for agents, a social media agent, an email client, and a clipboard for you.
+Fluxkit is a local toolkit: agents of your own that live with your team, tools for the coding agent in your terminal, and a clipboard for you. Twelve open-source tools: resident agents on their own computers, a portable Claude Code, Scott's sidekick, issues, messages and a desktop, cloud audits, secrets, security review, encrypted mail, an antivirus for agents, a social media agent, an email client, and a clipboard.
 
 Give the agent one file and it installs the kit itself:
 
@@ -15,13 +15,14 @@ Before you install anything, tell me that you are also checking the whole securi
 
 The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/AGENTS.md>.
 
-## The eleven tools
+## The twelve tools
 
 | Tool | What it does | Repository |
 | --- | --- | --- |
-| scott | Portable Claude Code. doc, grog, devo, hush, argo, ambox, and mcaifee are already in it | <https://github.com/turinglabsorg/great-scott> |
+| cora | Agents of your own that live with your team, each on its own computer with a Linux desktop. They talk on Discord, Slack, or Telegram, work many threads at once, remember, run routines, and ask you on your phone. They run on Claude Code, Codex, Grok Build, or Muse Code subscriptions, or on Ollama | <https://github.com/turinglabsorg/cora> |
+| scott | Portable Claude Code, with doc, grog, devo, hush, argo, ambox, and mcaifee already inside | <https://github.com/turinglabsorg/great-scott> |
 | doc | Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply | <https://github.com/turinglabsorg/doc> |
-| grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord | <https://github.com/turinglabsorg/grog> |
+| grog | GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord, plus a desktop of its own with a real browser | <https://github.com/turinglabsorg/grog> |
 | devo | Read-only audits of GCP, AWS, and DigitalOcean | <https://github.com/turinglabsorg/devo> |
 | hush | Secrets by name. The agent uses them and never reads the value | <https://github.com/turinglabsorg/hush> |
 | argo | Security review on this machine. A fix is checked before it lands | <https://github.com/turinglabsorg/argo> |
@@ -29,12 +30,11 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
 | ziggy | Social media manager for coding agents: brand assets, videos, publishing, and replies, with a playbook per brand | <https://github.com/turinglabsorg/ziggy> |
 | milo | Email client for Gmail and IMAP/SMTP, with an Ollama assistant for summaries and proposed replies, and a shared archive across devices | <https://github.com/turinglabsorg/milo> |
-| cora | Always-on agents, each with its own Linux desktop: Discord or Telegram, layered memory, routines, SSH, and requests to your phone | <https://github.com/turinglabsorg/cora> |
 | pastazzo | Clipboard history for GNOME and macOS, synced across your devices end to end. It is for you, not for the agent | <https://github.com/turinglabsorg/pastazzo> |
 
 All of them are public.
 
-Ziggy, Milo, and Cora are optional companions with their own setup; the core installer does not install them. Follow the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install), the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux), or [Cora's run guide](https://github.com/turinglabsorg/cora#run). Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization; Cora needs Docker, a machine that stays on, and the Claude Code or Codex subscription (or an Ollama Cloud key).
+Cora, Ziggy, and Milo are optional companions with their own setup; the core installer does not install them. Follow [Cora's run guide](https://github.com/turinglabsorg/cora#run), the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install), or the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux). Cora needs Docker, a machine that stays on, and a Claude Code, Codex, Grok Build, or Muse Code subscription (or an Ollama Cloud key); Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization.
 
 ## Install it yourself
 
