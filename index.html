@@ -454,6 +454,15 @@
     .cell:hover .repo svg { transform: translate(2px, -2px); }
 
     .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    /* google account */
+    .cell.still:hover { background: var(--panel); }
+    .cell.still::before { display: none; }
+    .nb { white-space: nowrap; }
+    .scope { margin-top: auto; padding-top: .5rem; font-size: 11px; color: var(--ink-3); overflow-wrap: anywhere; }
+    .scope code { color: var(--ink); }
+    .data-note { margin: 1.25rem 0 0; max-width: 46rem; color: var(--ink-2); }
+    .data-note a { color: var(--ink); text-underline-offset: 3px; }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -1039,6 +1048,37 @@
             </div>
           </div>
         </div>
+      </section>
+      <section id="google" aria-labelledby="google-title">
+        <div class="section-head">
+          <div>
+            <p class="label"><b>03</b> your google account</p>
+            <h2 id="google-title">One Google <span class="nb">sign-in.</span> Each permission asked when a feature needs it.</h2>
+          </div>
+          <p>Fluxkit is the name on Google's consent screen for the tools hosted at fluxkit.dev. Today that is ubercal, which merges your calendars into share links and booking pages.</p>
+        </div>
+
+        <div class="grid three">
+          <div class="cell still">
+            <div class="cell-top"><span class="num">01</span><span class="tag">every tool</span></div>
+            <h3>who you are</h3>
+            <p class="what">Your name, email address, and picture, to sign you in and show which account is in use.</p>
+            <p class="scope"><code>openid</code> · <code>email</code> · <code>profile</code></p>
+          </div>
+          <div class="cell still">
+            <div class="cell-top"><span class="num">02</span><span class="tag">ubercal</span></div>
+            <h3>read your calendars</h3>
+            <p class="what">The list of your Google calendars, so you pick which ones to merge, and the events of those you pick: for your share links, your merged calendar, and the free times on your booking pages. Nothing is changed.</p>
+            <p class="scope"><code>calendar.readonly</code></p>
+          </div>
+          <div class="cell still">
+            <div class="cell-top"><span class="num">03</span><span class="tag">ubercal bookings</span></div>
+            <h3>add booked meetings</h3>
+            <p class="what">Asked only when you turn on a booking page. When someone books, ubercal adds that one meeting, with the guest invited, to a calendar you own. Your other events are never touched.</p>
+            <p class="scope"><code>calendar.events.owned</code></p>
+          </div>
+        </div>
+        <p class="data-note">Google data is never sold, never used for ads, and never used to train AI models. Disconnect an account or delete everything from inside the tool at any time, or take access back at <a href="https://myaccount.google.com/connections">myaccount.google.com/connections</a>. The details are in the <a href="/privacy/">privacy policy</a> and the <a href="/terms/">terms</a>.</p>
       </section>
     </main>
   </div>
