@@ -18,20 +18,20 @@
   <link rel="preload" href="fonts/martian-mono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/dseg7-classic-bold.woff2" as="font" type="font/woff2" crossorigin>
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, cora, and pastazzo.">
+  <meta name="description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
   <meta property="og:title" content="Fluxkit">
-  <meta property="og:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, cora, and pastazzo.">
+  <meta property="og:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fluxkit.dev/">
-  <meta property="og:image" content="https://fluxkit.dev/og.png?v=12">
+  <meta property="og:image" content="https://fluxkit.dev/og.png?v=13">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, cora, pastazzo.">
+  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Fluxkit">
-  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, cora, and pastazzo.">
-  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=12">
-  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, cora, pastazzo.">
+  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
+  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=13">
+  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
   <style>
     @font-face {
       font-family: "Martian Mono";
@@ -61,6 +61,7 @@
       --tc-green: #2bff88;
       --tc-amber: #ffb21e;
       --pastazzo: #ff7a1a;
+      --cora: #f2a93b;
       --measure: min(72rem, 100% - 2rem);
       --mono: "Martian Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
       --ease: cubic-bezier(.2, .7, .2, 1);
@@ -452,18 +453,78 @@
     .cell:hover .repo { color: var(--ink); }
     .cell:hover .repo svg { transform: translate(2px, -2px); }
 
-    .cell.vehicle { grid-column: span 2; }
-    .vehicle h3 { font-size: clamp(36px, 5vw, 56px); letter-spacing: -.045em; }
-    .vehicle .what { max-width: 34rem; }
-    .riders { display: flex; flex-wrap: wrap; gap: .4rem; margin: .4rem 0 0; padding: 0; list-style: none; }
-    .riders li {
-      padding: .2rem .55rem;
-      border: 1px solid var(--rule-hi);
-      background: var(--void);
-      font-size: 11px;
-      color: var(--ink-2);
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* cora */
+    .cora-cell {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 2.25rem;
+      align-items: stretch;
+      min-height: 0;
+      padding: 1.6rem 1.35rem 1.4rem;
+      border: 1px solid var(--rule);
+      border-top-color: var(--cora);
+      box-shadow: 0 -14px 44px -26px var(--cora);
     }
-    .riders li::before { content: "+ "; color: var(--ink-3); }
+    .cora-cell .copy { display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+    .cora-cell .num, .cora-cell .tag { color: var(--cora); }
+    .cora-cell .tag { border-color: color-mix(in srgb, var(--cora) 55%, transparent); }
+    .cora-cell::before { background: linear-gradient(90deg, transparent, var(--cora), transparent); }
+    .cora-cell h3 { margin-top: 0; font-size: clamp(48px, 7.5vw, 92px); line-height: .95; letter-spacing: -.055em; }
+    .cora-cell .what { max-width: 32rem; }
+    .facts { display: grid; gap: .5rem; margin: .2rem 0 0; }
+    .facts div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); align-items: start; gap: .35rem; }
+    .facts dt { padding-top: .25rem; font-size: 10px; font-stretch: 100%; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+    .facts dd { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; }
+    .facts dd span { padding: .15rem .5rem; border: 1px solid var(--rule-hi); background: var(--void); font-size: 11px; color: var(--ink-2); }
+
+    .duty {
+      align-self: center;
+      min-width: 0;
+      padding: .7rem;
+      border: 1px solid var(--rule-hi);
+      background: #101114;
+      box-shadow: 0 30px 60px -30px #000, 0 0 0 6px rgba(255,255,255,.02);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .duty-bar { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding: .45rem .6rem; background: #1a1b1f; color: var(--ink-2); }
+    .lamp { display: flex; align-items: center; gap: .45rem; font-size: 10px; font-stretch: 100%; letter-spacing: .14em; text-transform: uppercase; color: var(--cora); white-space: nowrap; }
+    .lamp i, .led { width: 6px; height: 6px; flex: none; background: #2a2c31; }
+    .lamp i, .desk.on .led { background: var(--cora); box-shadow: 0 0 8px var(--cora); animation: led 1.8s ease-in-out infinite; }
+    .talk { display: grid; gap: .3rem; padding: .7rem .6rem .8rem; }
+    .talk p { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: .6rem; margin: 0; }
+    .talk b { font-weight: 600; color: var(--ink); }
+    .talk b.you { font-weight: 400; color: var(--ink-3); }
+    .talk span { color: var(--ink-2); }
+    .talk em { padding: 0 .2rem; font-style: normal; background: color-mix(in srgb, var(--cora) 18%, transparent); color: var(--cora); }
+    .desks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+    .desk { margin: 0; min-width: 0; }
+    .screen { position: relative; height: 5.4rem; overflow: hidden; border: 1px solid #24262b; background: #16171b; }
+    .desk.on .screen { border-color: color-mix(in srgb, var(--cora) 60%, transparent); }
+    .screen i { position: absolute; display: block; background: #2a2c31; }
+    .web .url { left: 6px; right: 6px; top: 6px; height: 6px; background: #24262b; }
+    .web .block { left: 6px; top: 18px; width: 58%; height: 20px; background: #34373c; }
+    .web .row { left: 6px; top: 44px; width: 72%; height: 4px; }
+    .web .row + .row { top: 53px; width: 46%; }
+    .web .button { left: 6px; top: 64px; width: 30%; height: 9px; background: var(--cora); }
+    .web .pointer { left: 0; top: 0; width: 9px; height: 12px; background: var(--ink); clip-path: polygon(0 0, 100% 72%, 45% 64%, 30% 100%, 0 0); animation: pointer 5s var(--ease) infinite; }
+    .shell .row { left: 6px; top: 8px; width: 64%; height: 4px; }
+    .shell .row + .row { top: 17px; width: 40%; }
+    .shell .bar { bottom: 8px; width: 8%; }
+    .shell .bar:nth-of-type(3) { left: 10%; height: 18%; }
+    .shell .bar:nth-of-type(4) { left: 22%; height: 30%; }
+    .shell .bar:nth-of-type(5) { left: 34%; height: 24%; }
+    .shell .bar:nth-of-type(6) { left: 46%; height: 42%; }
+    .shell .bar:nth-of-type(7) { left: 58%; height: 36%; }
+    .shell .bar:nth-of-type(8) { left: 70%; height: 52%; background: color-mix(in srgb, var(--cora) 70%, #2a2c31); }
+    .sleep { background: #0b0c0e; }
+    .sleep span { position: absolute; right: 10px; bottom: 8px; font-size: 10px; letter-spacing: .1em; color: var(--ink-3); }
+    .desk figcaption { display: flex; align-items: center; gap: .4rem; margin-top: .4rem; min-width: 0; font-size: 11px; color: var(--ink); white-space: nowrap; }
+    .desk figcaption small { margin-left: auto; overflow: hidden; text-overflow: ellipsis; font-size: 9px; color: var(--ink-3); }
+    .desk.routine .led { background: color-mix(in srgb, var(--cora) 45%, #2a2c31); }
 
     /* pastazzo */
     .shelf-cell {
@@ -653,11 +714,13 @@
     @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.35); opacity: 1; } }
     @keyframes jump { 0% { opacity: 0; } 12% { opacity: .85; } 100% { opacity: 0; } }
     @keyframes line { to { opacity: 1; transform: none; } }
+    @keyframes led { 50% { opacity: .35; } }
+    @keyframes pointer { 0%, 100% { transform: translate(62px, 52px); } 40% { transform: translate(38px, 22px); } 60%, 80% { transform: translate(22px, 66px); } }
 
     @media (max-width: 1023px) {
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .grid .cell:last-child { grid-column: span 2; }
-      .shelf-cell { grid-template-columns: minmax(0, 1fr); }
+      .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid .cell:last-child:nth-child(odd) { grid-column: span 2; }
+      .shelf-cell, .cora-cell { grid-template-columns: minmax(0, 1fr); }
       .ask-grid { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 860px) {
@@ -667,8 +730,11 @@
       .section-head > p { justify-self: start; }
     }
     @media (max-width: 640px) {
-      .grid { grid-template-columns: minmax(0, 1fr); }
-      .cell.vehicle, .grid .cell:last-child { grid-column: auto; }
+      .grid, .grid.four, .grid.two { grid-template-columns: minmax(0, 1fr); }
+      .grid .cell:last-child:nth-child(odd) { grid-column: auto; }
+      .facts div { grid-template-columns: minmax(0, 1fr); }
+      .desk figcaption { flex-wrap: wrap; row-gap: .1rem; }
+      .desk figcaption small { flex-basis: 100%; margin-left: 0; }
       .cell { min-height: 0; }
       .circuits { grid-template-columns: minmax(0, 1fr); }
       .readout { flex-direction: row; align-items: center; border-left: 0; border-top: 1px solid var(--rule); padding: .9rem 1rem; }
@@ -719,7 +785,7 @@
           <p class="prompt rise" style="--d:0"><b>$</b> sh install.sh<span class="cursor" aria-hidden="true"></span></p>
           <h1 class="rise" style="--d:1">fluxkit</h1>
           <p class="quote rise" style="--d:2">“Where we're going, we don't need roads.”<cite>Back to the Future</cite></p>
-          <p class="lede rise" style="--d:3">A local toolkit for your coding agent, and for you next to it. Twelve open-source tools for code, social channels, email, agents of your own, and your clipboard. Give the agent one file to install the core and check the whole security system.</p>
+          <p class="lede rise" style="--d:3">Agents of your own that live with your team, a toolkit for the coding agent in your terminal, and a clipboard for you. Twelve open-source tools. Give the agent one file to install the core and check the whole security system.</p>
           <div class="cta rise" style="--d:4">
             <button type="button" class="btn primary" data-copy="agent-prompt">
               <svg aria-hidden="true"><use href="#i-copy"/></svg>
@@ -783,60 +849,93 @@
         <div class="section-head">
           <div>
             <p class="label"><b>01</b> the kit</p>
-            <h2 id="kit-title">One vehicle. Tools for the work around it.</h2>
+            <h2 id="kit-title">Agents of your own. Tools for the one in your terminal.</h2>
           </div>
-          <p>Seven agent tools ride inside scott. Add Ziggy for social channels, Milo for email, and Cora for agents that live on their own computers; Pastazzo keeps your clipboard close. Every repository is public.</p>
+          <p>Cora runs agents that live with your team, each on its own computer. Seven agent tools ride inside scott. Ziggy takes your social channels, Milo your email, and Pastazzo keeps your clipboard close. Every repository is public.</p>
         </div>
 
-        <p class="group">for the agent</p>
-        <div class="grid">
-          <a class="cell vehicle" href="https://github.com/turinglabsorg/great-scott">
-            <div class="cell-top"><span class="num">01</span><span class="tag">vehicle</span></div>
+        <p class="group">agents of your own</p>
+        <a class="cell cora-cell" href="https://github.com/turinglabsorg/cora">
+          <div class="copy">
+            <div class="cell-top"><span class="num">01</span><span class="tag">resident agents</span></div>
+            <h3>cora</h3>
+            <p class="what">Agents that live with your team, each on its own computer. They answer when named, work many threads at once, remember, run routines, and ask you on your phone when they need you.</p>
+            <dl class="facts">
+              <div><dt>lives on</dt><dd><span>Discord</span><span>Slack</span><span>Telegram</span></dd></div>
+              <div><dt>thinks with</dt><dd><span>Claude Code</span><span>Codex</span><span>Grok Build</span><span>Muse Code</span><span>Ollama</span></dd></div>
+            </dl>
+            <span class="repo">turinglabsorg/cora <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </div>
+          <div class="duty" aria-hidden="true">
+            <div class="duty-bar"><span># launch</span><span class="lamp"><i></i>on air</span></div>
+            <div class="talk">
+              <p><b class="you">you</b><span><em>@Ada</em> can the pricing page go live tonight?</span></p>
+              <p><b>Ada</b><span>On it. Opening staging on my desktop.</span></p>
+              <p><b>Ada</b><span>Live. Three checks green, screenshot in the thread.</span></p>
+            </div>
+            <div class="desks">
+              <figure class="desk on">
+                <div class="screen web"><i class="url"></i><i class="block"></i><i class="row"></i><i class="row"></i><i class="button"></i><i class="pointer"></i></div>
+                <figcaption><span class="led"></span>Ada<small>working</small></figcaption>
+              </figure>
+              <figure class="desk routine">
+                <div class="screen shell"><i class="row"></i><i class="row"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i></div>
+                <figcaption><span class="led"></span>Brio<small>routine 18:30</small></figcaption>
+              </figure>
+              <figure class="desk">
+                <div class="screen sleep"><span>z z</span></div>
+                <figcaption><span class="led"></span>Lux<small>asleep</small></figcaption>
+              </figure>
+            </div>
+          </div>
+        </a>
+
+        <p class="group">for your coding agent</p>
+        <div class="grid four">
+          <a class="cell" href="https://github.com/turinglabsorg/great-scott">
+            <div class="cell-top"><span class="num">02</span><span class="tag">vehicle</span></div>
             <h3>scott</h3>
-            <p class="what">Portable Claude Code. doc, grog, devo, hush, argo, ambox, and mcaifee are already in it and ready to use.</p>
-            <ul class="riders" aria-label="Already inside">
-              <li>doc</li><li>grog</li><li>devo</li><li>hush</li><li>argo</li><li>ambox</li><li>mcaifee</li>
-            </ul>
+            <p class="what">Portable Claude Code. The next seven tools are already inside and ready to use.</p>
             <span class="repo">turinglabsorg/great-scott <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/doc">
-            <div class="cell-top"><span class="num">02</span><span class="tag">guard</span></div>
+            <div class="cell-top"><span class="num">03</span><span class="tag">guard</span></div>
             <h3>doc</h3>
             <p class="what">Scott's sidekick. A comment is checked before it goes out, and estimates stay out of the reply.</p>
             <span class="repo">turinglabsorg/doc <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/grog">
-            <div class="cell-top"><span class="num">03</span><span class="tag">issues, chat</span></div>
+            <div class="cell-top"><span class="num">04</span><span class="tag">issues, chat</span></div>
             <h3>grog</h3>
-            <p class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord.</p>
+            <p class="what">GitHub, Linear, and the bridges to Telegram, WhatsApp, and Discord. Now with a desktop of its own: a real browser, where a site sees a person.</p>
             <span class="repo">turinglabsorg/grog <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/devo">
-            <div class="cell-top"><span class="num">04</span><span class="tag">cloud</span></div>
+            <div class="cell-top"><span class="num">05</span><span class="tag">cloud</span></div>
             <h3>devo</h3>
             <p class="what">Read-only audits of GCP, AWS, and DigitalOcean.</p>
             <span class="repo">turinglabsorg/devo <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/hush">
-            <div class="cell-top"><span class="num">05</span><span class="tag">secrets</span></div>
+            <div class="cell-top"><span class="num">06</span><span class="tag">secrets</span></div>
             <h3>hush</h3>
             <p class="what">Secrets by name. The agent uses them and never reads the value.</p>
             <span class="repo">turinglabsorg/hush <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/argo">
-            <div class="cell-top"><span class="num">06</span><span class="tag">review</span></div>
+            <div class="cell-top"><span class="num">07</span><span class="tag">review</span></div>
             <h3>argo</h3>
             <p class="what">Security review on this machine. A fix is checked before it lands.</p>
             <span class="repo">turinglabsorg/argo <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/ambox">
-            <div class="cell-top"><span class="num">07</span><span class="tag">mail</span></div>
+            <div class="cell-top"><span class="num">08</span><span class="tag">mail</span></div>
             <h3>ambox</h3>
             <p class="what">End-to-end encrypted mail for agents. Decryption stays on this machine.</p>
             <span class="repo">turinglabsorg/ambox <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/mcaifee">
-            <div class="cell-top"><span class="num">08</span><span class="tag">packages</span></div>
+            <div class="cell-top"><span class="num">09</span><span class="tag">packages</span></div>
             <h3>mcaifee</h3>
             <p class="what">Antivirus for agents. A package is checked before it runs.</p>
             <span class="repo">turinglabsorg/mcaifee <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
@@ -844,24 +943,18 @@
         </div>
 
         <p class="group">companions</p>
-        <div class="grid companions">
+        <div class="grid two">
           <a class="cell" href="https://github.com/turinglabsorg/ziggy">
-            <div class="cell-top"><span class="num">09</span><span class="tag">social agent</span></div>
+            <div class="cell-top"><span class="num">10</span><span class="tag">social agent</span></div>
             <h3>ziggy</h3>
             <p class="what">Your agent's social media manager. Brand assets, short videos, publishing, and replies, with a separate playbook for each brand.</p>
             <span class="repo">turinglabsorg/ziggy <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
           <a class="cell" href="https://github.com/turinglabsorg/milo">
-            <div class="cell-top"><span class="num">10</span><span class="tag">email client</span></div>
+            <div class="cell-top"><span class="num">11</span><span class="tag">email client</span></div>
             <h3>milo</h3>
             <p class="what">Your inbox, with room to think. An email client for Gmail and IMAP/SMTP, with Ollama for summaries and proposed replies. Your archive follows you across devices.</p>
             <span class="repo">turinglabsorg/milo <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
-          </a>
-          <a class="cell" href="https://github.com/turinglabsorg/cora">
-            <div class="cell-top"><span class="num">11</span><span class="tag">resident agents</span></div>
-            <h3>cora</h3>
-            <p class="what">Always-on agents, each on its own computer. They talk on Discord or Telegram, remember, run routines, and ask you on your phone when they need you.</p>
-            <span class="repo">turinglabsorg/cora <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
         </div>
 
@@ -895,7 +988,7 @@
             <p class="label"><b>02</b> ask your agent</p>
             <h2 id="install-title">One file. The agent does the rest, and tells you what it checked.</h2>
           </div>
-          <p>The core installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. Tokens, models, and addresses wait for your yes. Ziggy and Milo have their own setup in their repositories.</p>
+          <p>The core installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. Tokens, models, and addresses wait for your yes. Cora, Ziggy, and Milo have their own setup in their repositories.</p>
         </div>
 
         <div class="ask-grid">
