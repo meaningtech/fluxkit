@@ -54,7 +54,11 @@ The page measure is `min(72rem, 100% - 2rem)`. Nothing scrolls sideways at 1440,
    - `// companions`: Ziggy (10) and Milo (11), two columns above 640px, one below. Ziggy is the social media agent; Milo is the human's email client with an Ollama assistant. They have separate setup and are not bundled inside scott or installed by the core installer. The installation section states this explicitly, for Cora too.
    - `// next to you`: pastazzo. It is not an agent tool: it is for the human working next to the agent. Its cell is full width, with the pastazzo orange on its number, its tag, its top border and a soft glow above it, a keycap row `Shift Alt V`, and on the right a dark mock of the shelf: search field, a transfer pill, four items with age and device, the first one selected. The row of items is clipped with a fade; it never widens the page.
 5. **Ask your agent.** Section label `02 ask your agent`. A terminal window: the human's message (the exact prompt below), the agent's first line (the security sentence), then installer lines with `ok` in green. Lines appear one after the other on load. Under it, copy and open, and the `curl` line for people who install it themselves, with its own copy.
-6. **Footer.** The quote and its attribution, `meaningtech`, `MIT`.
+6. **Footer.** The quote and its attribution, `meaningtech`, `source`, `AGENTS.md`, `privacy`, `terms`.
+
+## Legal pages
+
+`privacy/index.html` and `terms/index.html` are the legal home of every hosted Fluxkit service (ubercal first, then milo): one Google sign-in, one consent screen, one policy. They share `legal.css`: the same ground, grain, Martian Mono and bar as the landing, a narrower measure (`min(46rem, 100% - 2rem)`), an uppercase `legal` label, the title at width 112.5 weight 800, a boxed summary, and numbered sections (`01`…) whose number sits in `--ink-3`. No script and no analytics on these pages. When a hosted service starts using new data, its section is added here before it ships.
 
 Cells are square, 1px `--rule` border, `--panel` fill. On hover a cell's border goes `--rule-hi` and its arrow moves 2px. No radius anywhere except keycaps (3px).
 
