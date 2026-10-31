@@ -25,7 +25,7 @@
     <main>
       <p class="label">legal</p>
       <h1>Privacy</h1>
-      <p class="updated">Last updated 31 October 2026</p>
+      <p class="updated">Last updated 31 October 2026 (booking pages)</p>
 
       <p class="summary"><b>In short.</b> The Fluxkit tools you install run on your own machines and send us nothing. Our hosted services, starting with ubercal, use Google sign-in. They keep what they need to do their job, read your Google data only with the access you grant, never sell it, never use it for ads, and delete it when you ask.</p>
 
@@ -45,9 +45,11 @@
         <li><strong>Google Calendar data</strong>, only if you connect Google Calendar, through Google's read-only calendar permission (<code>calendar.readonly</code>): the list of your calendars, and the events of the calendars you choose to add, with their times, titles, descriptions, places, attendees, conference links and repeat rules. ubercal never creates, changes or deletes anything in your Google calendars.</li>
         <li><strong>Google access tokens</strong> for each Google account you connect, encrypted at rest, so ubercal can read those calendars again every five minutes, and when a calendar app asks for a share link.</li>
         <li><strong>Calendar links you paste</strong> (.ics or webcal), encrypted at rest because they often contain a private key, and the events they contain.</li>
-        <li><strong>Your share links</strong>: their names, their secret addresses, how each one shows each calendar, how far back it goes, and when a calendar app last read it.</li>
+        <li><strong>Your share links</strong>: their names, their secret addresses, how each one shows each calendar, which dates it covers, and when a calendar app last read it.</li>
+        <li><strong>Your booking pages</strong>, only if you make one: their names, durations, weekly hours, time zone and limits. To take bookings, ubercal asks Google for leave to add events to calendars you own (<code>calendar.events.owned</code>). It uses that leave only to write each booked meeting into the calendar you choose, so Google sends the invitation; it never changes or deletes your other events.</li>
+        <li><strong>People who book you</strong>: the name, email address and notes they enter on your booking page, and the time they chose. They reach you as a Google Calendar invitation, and ubercal keeps them so your page can show what is coming up, until 30 days after the meeting.</li>
       </ul>
-      <p>We use this data for one purpose: to build and refresh the share links you make. A share link shows to whoever has its address exactly what you chose: a calendar set to <em>full</em> with its details, a calendar set to <em>busy</em> with its times only and nothing else, a calendar set to <em>off</em> not at all. Treat a share link like a password; you can replace it with a new address at any time and the old one stops working at once.</p>
+      <p>We use this data for two purposes: to build and refresh the share links you make, and to offer and record the bookings your booking pages take. A share link shows to whoever has its address exactly what you chose: a calendar set to <em>full</em> with its details, a calendar set to <em>busy</em> with its times only and nothing else, a calendar set to <em>off</em> not at all. Treat a share link like a password; you can replace it with a new address at any time and the old one stops working at once.</p>
 
       <h2><span>05</span>Google user data: Limited Use</h2>
       <p>ubercal's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. In particular:</p>
@@ -62,7 +64,8 @@
       <ul>
         <li>Events are replaced every time ubercal reads their calendar; an event deleted at the source disappears from ubercal at the next read.</li>
         <li>Removing a calendar deletes its events. Disconnecting a Google account deletes its calendars and asks Google to revoke ubercal's access.</li>
-        <li>Deleting your account, from the button at the bottom of the app, deletes your calendars, events, share links, connected accounts and profile at once and revokes ubercal's Google access.</li>
+        <li>Deleting your account, from the button at the bottom of the app, deletes your calendars, events, share links, booking pages, bookings, connected accounts and profile at once and revokes ubercal's Google access.</li>
+        <li>The details of someone who booked you are deleted 30 days after the meeting. If you booked someone and want your details removed sooner, write to us.</li>
         <li>You can also remove ubercal's access from your Google account at any time, at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
       </ul>
 
