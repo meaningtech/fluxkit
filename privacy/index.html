@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy · Fluxkit</title>
+  <meta name="description" content="How Fluxkit's hosted services, starting with ubercal, handle your Google sign-in, your calendars and your data.">
+  <link rel="canonical" href="https://fluxkit.dev/privacy/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/legal.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <a class="crumb" href="/">
+        <svg viewBox="0 0 30 34" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="15" y1="2" x2="15" y2="16"/><line x1="15" y1="16" x2="3" y2="31"/><line x1="15" y1="16" x2="27" y2="31"/></g></svg>
+        meaningtech <span>/</span> <strong>fluxkit</strong>
+      </a>
+      <nav aria-label="Legal">
+        <a href="/privacy/" aria-current="page">privacy</a>
+        <a href="/terms/">terms</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="label">legal</p>
+      <h1>Privacy</h1>
+      <p class="updated">Last updated 31 October 2026</p>
+
+      <p class="summary"><b>In short.</b> The Fluxkit tools you install run on your own machines and send us nothing. Our hosted services, starting with ubercal, use Google sign-in. They keep what they need to do their job, read your Google data only with the access you grant, never sell it, never use it for ads, and delete it when you ask.</p>
+
+      <h2><span>01</span>Who we are</h2>
+      <p>Fluxkit is made by meaningtech. meaningtech decides how the data described here is used (the data controller). You can reach us at <a href="mailto:hello@meaningtech.io">hello@meaningtech.io</a> for anything on this page.</p>
+
+      <h2><span>02</span>What this covers</h2>
+      <p>This policy covers fluxkit.dev and the hosted Fluxkit services on its subdomains, which share one Google sign-in. Today that is <a href="https://ubercal.fluxkit.dev">ubercal</a>. When another hosted service joins, it is added here before it asks for anything new.</p>
+      <p>It does not cover the open-source tools in the kit (cora, scott, doc, grog and the others) when you install and run them yourself: they run on your computers, under your accounts, and do not send us your data.</p>
+
+      <h2><span>03</span>Signing in with Google</h2>
+      <p>When you sign in, Google tells us your Google account ID, your email address, your name and your profile picture. We use them to know it is you and to show who is signed in. We keep a signed session cookie, <code>fluxkit_session</code>, for up to 30 days so you stay signed in across Fluxkit services. It is strictly necessary and holds nothing else.</p>
+
+      <h2><span>04</span>ubercal</h2>
+      <p>ubercal merges calendars into share links. To do that it keeps:</p>
+      <ul>
+        <li><strong>Google Calendar data</strong>, only if you connect Google Calendar, through Google's read-only calendar permission (<code>calendar.readonly</code>): the list of your calendars, and the events of the calendars you choose to add, with their times, titles, descriptions, places, attendees, conference links and repeat rules. ubercal never creates, changes or deletes anything in your Google calendars.</li>
+        <li><strong>Google access tokens</strong> for each Google account you connect, encrypted at rest, so ubercal can read those calendars again every ten minutes.</li>
+        <li><strong>Calendar links you paste</strong> (.ics or webcal), encrypted at rest because they often contain a private key, and the events they contain.</li>
+        <li><strong>Your share links</strong>: their names, their secret addresses, how each one shows each calendar, how far back it goes, and when a calendar app last read it.</li>
+      </ul>
+      <p>We use this data for one purpose: to build and refresh the share links you make. A share link shows to whoever has its address exactly what you chose: a calendar set to <em>full</em> with its details, a calendar set to <em>busy</em> with its times only and nothing else, a calendar set to <em>off</em> not at all. Treat a share link like a password; you can replace it with a new address at any time and the old one stops working at once.</p>
+
+      <h2><span>05</span>Google user data: Limited Use</h2>
+      <p>ubercal's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. In particular:</p>
+      <ul>
+        <li>we use Google user data only to provide the features you see in ubercal;</li>
+        <li>we do not transfer it to anyone, except to the people you give a share link to, as you set it up, or when the law requires it;</li>
+        <li>we do not use it for advertising, we do not sell it, and we do not use it to train AI or machine learning models;</li>
+        <li>no person at meaningtech reads it, unless you ask us to for support, it is needed for security or to investigate abuse, or the law requires it.</li>
+      </ul>
+
+      <h2><span>06</span>How long we keep it</h2>
+      <ul>
+        <li>Events are replaced every time ubercal reads their calendar; an event deleted at the source disappears from ubercal at the next read.</li>
+        <li>Removing a calendar deletes its events. Disconnecting a Google account deletes its calendars and asks Google to revoke ubercal's access.</li>
+        <li>Deleting your account, from the button at the bottom of the app, deletes your calendars, events, share links, connected accounts and profile at once and revokes ubercal's Google access.</li>
+        <li>You can also remove ubercal's access from your Google account at any time, at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+      </ul>
+
+      <h2><span>07</span>Where it is and who helps</h2>
+      <p>The hosted services run on servers meaningtech operates, with the database on the same machine. Traffic reaches them encrypted (HTTPS) through a relay we run on DigitalOcean. Google provides the sign-in and the Calendar data you choose to share. Cloudflare answers DNS queries for fluxkit.dev and does not see the traffic itself. We do not use any other service that receives your data.</p>
+
+      <h2><span>08</span>Cookies and analytics</h2>
+      <p>ubercal uses only the sign-in cookies described above: <code>fluxkit_session</code>, and a short-lived cookie that protects the sign-in from forgery for ten minutes while you are at Google. It has no analytics and no trackers. The fluxkit.dev home page uses Google Analytics to count visits; the legal pages and the hosted services do not.</p>
+
+      <h2><span>09</span>Your rights</h2>
+      <p>Wherever you live, you can ask us to show you the data we hold about you, correct it, delete it, or give it to you in a portable format, and you can object to how we use it. Most of this you can do yourself in the app. For the rest, write to <a href="mailto:hello@meaningtech.io">hello@meaningtech.io</a>; we answer within 30 days. If you are in the European Union or the United Kingdom, you can also complain to your data protection authority. We use your data to provide the service you asked for (contract) and, for the security of the service, on our legitimate interest.</p>
+
+      <h2><span>10</span>Children</h2>
+      <p>The hosted services are not meant for children under 16 and we do not knowingly hold their data.</p>
+
+      <h2><span>11</span>Changes</h2>
+      <p>If we change this policy, we update the date at the top. If a change gives us more data or new uses for it, we tell you in the app before it applies.</p>
+    </main>
+
+    <footer>
+      <span>Fluxkit · meaningtech</span>
+      <nav aria-label="Footer"><a href="/">fluxkit.dev</a><a href="/terms/">terms</a></nav>
+    </footer>
+  </div>
+</body>
+</html>
