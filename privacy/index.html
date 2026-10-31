@@ -47,7 +47,7 @@
         <li><strong>Calendar links you paste</strong> (.ics or webcal), encrypted at rest because they often contain a private key, and the events they contain.</li>
         <li><strong>Your share links</strong>: their names, their secret addresses, how each one shows each calendar, which dates it covers, and when a calendar app last read it.</li>
         <li><strong>Your booking pages</strong>, only if you make one: their names, durations, weekly hours, time zone and limits. To take bookings, ubercal asks Google for leave to add events to calendars you own (<code>calendar.events.owned</code>). It uses that leave only to write each booked meeting into the calendar you choose, so Google sends the invitation; it never changes or deletes your other events.</li>
-        <li><strong>People who book you</strong>: the name, email address and notes they enter on your booking page, and the time they chose. They reach you as a Google Calendar invitation, and ubercal keeps them so your page can show what is coming up, until 30 days after the meeting.</li>
+        <li><strong>People who book you</strong>: the name, email address and notes they enter on your booking page, and the time they chose. They reach you as a Google Calendar invitation and an email notice, the person who booked gets a confirmation and reminders by email, and ubercal keeps these details so your page can show what is coming up, until 30 days after the meeting.</li>
       </ul>
       <p>We use this data for two purposes: to build and refresh the share links you make, and to offer and record the bookings your booking pages take. A share link shows to whoever has its address exactly what you chose: a calendar set to <em>full</em> with its details, a calendar set to <em>busy</em> with its times only and nothing else, a calendar set to <em>off</em> not at all. Treat a share link like a password; you can replace it with a new address at any time and the old one stops working at once.</p>
 
@@ -70,7 +70,7 @@
       </ul>
 
       <h2><span>07</span>Where it is and who helps</h2>
-      <p>The hosted services run on servers meaningtech operates, with the database on the same machine. Traffic reaches them encrypted (HTTPS) through a relay we run on DigitalOcean. Google provides the sign-in and the Calendar data you choose to share. Cloudflare answers DNS queries for fluxkit.dev and does not see the traffic itself. We do not use any other service that receives your data.</p>
+      <p>The hosted services run on servers meaningtech operates, with the database on the same machine. Traffic reaches them encrypted (HTTPS) through a relay we run on DigitalOcean. Google provides the sign-in and the Calendar data you choose to share. Resend sends the booking emails (the confirmation, the reminders and the owner's notice), so it receives the name and email address of the person who booked, the meeting's name, time and notes, and the owner's email address. Cloudflare answers DNS queries for fluxkit.dev and does not see the traffic itself. We do not use any other service that receives your data.</p>
 
       <h2><span>08</span>Cookies and analytics</h2>
       <p>ubercal uses only the sign-in cookies described above: <code>fluxkit_session</code>, and a short-lived cookie that protects the sign-in from forgery for ten minutes while you are at Google. It has no analytics and no trackers. The fluxkit.dev home page uses Google Analytics to count visits; the legal pages and the hosted services do not.</p>
