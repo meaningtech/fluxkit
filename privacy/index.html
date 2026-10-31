@@ -43,7 +43,7 @@
       <p>ubercal merges calendars into share links. To do that it keeps:</p>
       <ul>
         <li><strong>Google Calendar data</strong>, only if you connect Google Calendar, through Google's read-only calendar permission (<code>calendar.readonly</code>): the list of your calendars, and the events of the calendars you choose to add, with their times, titles, descriptions, places, attendees, conference links and repeat rules. ubercal never creates, changes or deletes anything in your Google calendars.</li>
-        <li><strong>Google access tokens</strong> for each Google account you connect, encrypted at rest, so ubercal can read those calendars again every ten minutes.</li>
+        <li><strong>Google access tokens</strong> for each Google account you connect, encrypted at rest, so ubercal can read those calendars again every five minutes, and when a calendar app asks for a share link.</li>
         <li><strong>Calendar links you paste</strong> (.ics or webcal), encrypted at rest because they often contain a private key, and the events they contain.</li>
         <li><strong>Your share links</strong>: their names, their secret addresses, how each one shows each calendar, how far back it goes, and when a calendar app last read it.</li>
       </ul>
