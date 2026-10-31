@@ -30,11 +30,12 @@ The same file is at <https://raw.githubusercontent.com/meaningtech/fluxkit/main/
 | mcaifee | Antivirus for agents. A package is checked before it runs | <https://github.com/turinglabsorg/mcaifee> |
 | ziggy | Social media manager for coding agents: brand assets, videos, publishing, and replies, with a playbook per brand | <https://github.com/turinglabsorg/ziggy> |
 | milo | Email client for Gmail and IMAP/SMTP, with an Ollama assistant for summaries and proposed replies, and a shared archive across devices | <https://github.com/turinglabsorg/milo> |
+| ubercal | Every calendar, one link: Google calendars and .ics links merged into share links that show each calendar in full, as busy time, or not at all. Hosted, nothing to install | <https://github.com/turinglabsorg/ubercal> (live at <https://ubercal.fluxkit.dev>) |
 | pastazzo | Clipboard history for GNOME and macOS, synced across your devices end to end. It is for you, not for the agent | <https://github.com/turinglabsorg/pastazzo> |
 
 All of them are public.
 
-Cora, Ziggy, and Milo are optional companions with their own setup; the core installer does not install them. Follow [Cora's run guide](https://github.com/turinglabsorg/cora#run), the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install), or the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux). Cora needs Docker, a machine that stays on, and a Claude Code, Codex, Grok Build, or Muse Code subscription (or an Ollama Cloud key); Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization.
+Cora, Ziggy, and Milo are optional companions with their own setup; the core installer does not install them. ubercal is hosted: open <https://ubercal.fluxkit.dev> and sign in with Google. Follow [Cora's run guide](https://github.com/turinglabsorg/cora#run), the [Ziggy installation guide](https://github.com/turinglabsorg/ziggy#install), or the [Milo setup guide](https://github.com/turinglabsorg/milo#run-on-linux). Cora needs Docker, a machine that stays on, and a Claude Code, Codex, Grok Build, or Muse Code subscription (or an Ollama Cloud key); Ziggy needs a publishing provider and hush-held keys; Milo needs PostgreSQL and mailbox authorization.
 
 ## Install it yourself
 
