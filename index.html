@@ -18,20 +18,20 @@
   <link rel="preload" href="fonts/martian-mono.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/dseg7-classic-bold.woff2" as="font" type="font/woff2" crossorigin>
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
+  <meta name="description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, ubercal, and pastazzo.">
   <meta property="og:title" content="Fluxkit">
-  <meta property="og:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
+  <meta property="og:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, ubercal, and pastazzo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fluxkit.dev/">
-  <meta property="og:image" content="https://fluxkit.dev/og.png?v=13">
+  <meta property="og:image" content="https://fluxkit.dev/og.png?v=14">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
+  <meta property="og:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, ubercal, pastazzo.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Fluxkit">
-  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, and pastazzo.">
-  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=13">
-  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, pastazzo.">
+  <meta name="twitter:description" content="Fluxkit is a toolkit for developers: cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, ubercal, and pastazzo.">
+  <meta name="twitter:image" content="https://fluxkit.dev/og.png?v=14">
+  <meta name="twitter:image:alt" content="White flux mark on black, the line Where we're going, we don't need roads, and cora, scott, doc, grog, devo, hush, argo, ambox, mcaifee, ziggy, milo, ubercal, pastazzo.">
   <style>
     @font-face {
       font-family: "Martian Mono";
@@ -455,6 +455,7 @@
 
     .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     /* cora */
     .cora-cell {
@@ -719,6 +720,7 @@
 
     @media (max-width: 1023px) {
       .grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid.three { grid-template-columns: minmax(0, 1fr); }
       .grid .cell:last-child:nth-child(odd) { grid-column: span 2; }
       .shelf-cell, .cora-cell { grid-template-columns: minmax(0, 1fr); }
       .ask-grid { grid-template-columns: minmax(0, 1fr); }
@@ -730,7 +732,7 @@
       .section-head > p { justify-self: start; }
     }
     @media (max-width: 640px) {
-      .grid, .grid.four, .grid.two { grid-template-columns: minmax(0, 1fr); }
+      .grid, .grid.four, .grid.two, .grid.three { grid-template-columns: minmax(0, 1fr); }
       .grid .cell:last-child:nth-child(odd) { grid-column: auto; }
       .facts div { grid-template-columns: minmax(0, 1fr); }
       .desk figcaption { flex-wrap: wrap; row-gap: .1rem; }
@@ -833,7 +835,7 @@
       <div class="circuits rise" style="--d:5" aria-label="Time circuits">
         <div class="readout red">
           <span class="name">Tools in the kit</span>
-          <span class="digits" role="img" aria-label="12 tools"><span class="ghost" aria-hidden="true">88</span><span class="lit" aria-hidden="true" data-count="12">12</span></span>
+          <span class="digits" role="img" aria-label="13 tools"><span class="ghost" aria-hidden="true">88</span><span class="lit" aria-hidden="true" data-count="13">13</span></span>
         </div>
         <div class="readout green">
           <span class="name">Secrets printed</span>
@@ -851,7 +853,7 @@
             <p class="label"><b>01</b> the kit</p>
             <h2 id="kit-title">Agents of your own. Tools for the one in your terminal.</h2>
           </div>
-          <p>Cora runs agents that live with your team, each on its own computer. Seven agent tools ride inside scott. Ziggy takes your social channels, Milo your email, and Pastazzo keeps your clipboard close. Every repository is public.</p>
+          <p>Cora runs agents that live with your team, each on its own computer. Seven agent tools ride inside scott. Ziggy takes your social channels, Milo your email, ubercal your calendars, and Pastazzo keeps your clipboard close. Every repository is public.</p>
         </div>
 
         <p class="group">agents of your own</p>
@@ -943,7 +945,7 @@
         </div>
 
         <p class="group">companions</p>
-        <div class="grid two">
+        <div class="grid three">
           <a class="cell" href="https://github.com/turinglabsorg/ziggy">
             <div class="cell-top"><span class="num">10</span><span class="tag">social agent</span></div>
             <h3>ziggy</h3>
@@ -956,12 +958,18 @@
             <p class="what">Your inbox, with room to think. An email client for Gmail and IMAP/SMTP, with Ollama for summaries and proposed replies. Your archive follows you across devices.</p>
             <span class="repo">turinglabsorg/milo <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
           </a>
+          <a class="cell" href="https://github.com/turinglabsorg/ubercal">
+            <div class="cell-top"><span class="num">12</span><span class="tag">calendars</span></div>
+            <h3>ubercal</h3>
+            <p class="what">Every calendar, one link. Merge Google calendars and .ics links into share links that show each calendar in full, as busy time, or not at all, from the dates you choose. Hosted at ubercal.fluxkit.dev.</p>
+            <span class="repo">turinglabsorg/ubercal <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+          </a>
         </div>
 
         <p class="group">next to you</p>
         <a class="cell shelf-cell" href="https://github.com/turinglabsorg/pastazzo">
           <div class="copy">
-            <div class="cell-top"><span class="num">12</span><span class="tag">clipboard</span></div>
+            <div class="cell-top"><span class="num">13</span><span class="tag">clipboard</span></div>
             <h3>pastazzo</h3>
             <p class="what">Clipboard history for GNOME and macOS. Everything you copy lands on a shelf, synced across your devices end to end. Not an agent tool: the one you reach for while the agent works.</p>
             <div class="keys" aria-label="Shortcut Shift Alt V"><kbd>Shift</kbd><kbd>Alt</kbd><kbd>V</kbd><span>opens the shelf</span></div>
@@ -988,7 +996,7 @@
             <p class="label"><b>02</b> ask your agent</p>
             <h2 id="install-title">One file. The agent does the rest, and tells you what it checked.</h2>
           </div>
-          <p>The core installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. Tokens, models, and addresses wait for your yes. Cora, Ziggy, and Milo have their own setup in their repositories.</p>
+          <p>The core installer puts in what needs no secret, then checks file modes, the gcloud guard, and argo. Tokens, models, and addresses wait for your yes. Cora, Ziggy, and Milo have their own setup in their repositories; ubercal needs none, it runs at ubercal.fluxkit.dev.</p>
         </div>
 
         <div class="ask-grid">
