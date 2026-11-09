@@ -132,3 +132,7 @@ Pastazzo sync needs an invite link from a pastazzo server the human runs or trus
 - Ambox mail is decrypted locally. Do not copy `~/.ambox` into a repository or a chat.
 - Grog multiline messages go in a file. Do not pass a message body as an escaped `\n` string.
 - The pastazzo history is the human's clipboard: passwords, tokens, and private screenshots. Do not read `~/.local/share/pastazzo` or list it with `pastazzo` unless the human asks for a specific item.
+
+## Hosted Google features
+
+The Google consent brand is Fluxkit. In addition to ubercal’s `calendar.readonly` and booking-only `calendar.events.owned`, Cora’s optional Google mail connection requests `openid`, `email` and sending-only `gmail.send` through connect.fluxkit.dev. The home page and legal pages disclose each feature separately. Keep the data protection and retention sections aligned with the actual implementations: ubercal seals OAuth credentials and private calendar URLs with AES-256-GCM; Cora stores its refresh bundle in hush on the instance. Cora disconnect disables grants and clears memory, but does not erase its hush entry or local history or revoke the shared Google authorization. Do not promise blanket encryption or automatic deletion.
